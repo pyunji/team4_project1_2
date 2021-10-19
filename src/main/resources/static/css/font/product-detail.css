@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+/*product detail font*/
+
+#contentDiv .info .info_sect .item_name .brand-name a{
+	font-size:25px;
+	font-weight: bold;
+}
+
+#contentDiv .info .info_sect .item_name .name{
+	font-size:35px;
+}
+
+.price span{
+	font-size: 20px;
+}
+
+#contentDiv .info .info_sect .prod-detail-con-box strong{
+	font-size: 18px;
+}
+
+#contentDiv .info .info_sect .prod-detail-con-box .round-style p{
+	font-size: 18px;
+}
+
+#contentDiv .info .info_sect .point_delivery li span{
+	font-size: 15px;
+}
+
+#contentDiv .info .info_sect .color_size_qty .title{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#contentDiv .info .info_sect .color_size_qty .txt{
+	font-size: 18px;
+}
+
+#contentDiv .info .total_price .float_right_2{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.item_detail_info .info .total_price .title{
+	font-size: 20px; 
+	font-weight:bold; 
+	width:auto; 
+	line-height:22px; 
+	display: inline;
+	margin-right: 15px;
+}
+
+#contentDiv .info .related_evt .cd-n-lb-tab .on a{
+	font-size:27px;
+	font-weight: bold;
+}
+
+/*위시리스트*/
+#referencesListContent .info_wrap .brand{font-size: 18px;}
+#referencesListContent .info_wrap .title{font-size: 18px; white-space: nowrap;}
+#referencesListContent .info_wrap .price{font-size: 18px;}
+
+/*사이즈 alert 창*/
+.size_chip > li > #alertStock{padding:1px 5px; display: none; white-space: nowrap; background-color: #ffc107; color: white; border: 2px;}
+
+
+
+

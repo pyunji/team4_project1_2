@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.evt_top{
+	background-color:#295F39; width:1000px; border:1px solid; padding: 50px; margin:50px auto;
+}
+
+.evt_top .subj{color:white; font-size: 20px; font-weight: bold; margin:10px;}
+.evt_top .date{color:white; font-size: 15px; font-weight: bold; margin:10px;}
+
+
+.event_button{
+  position: absolute;
+  top: 102%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #295F39;
+  width:150px;
+  height:40px;
+  text-align:center;
+  font-weight: bold;
+}
+.event_couponbutton{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size:17px;
+  cursor: pointer;
+}

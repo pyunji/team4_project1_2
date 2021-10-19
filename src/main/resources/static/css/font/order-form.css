@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+/*order-form font*/
+.tbl_ltype tbody .al_middle .tlt_wrap .tlt{font-size:14px;}
+.tbl_ltype tbody .al_middle .tlt_wrap .sb_tlt{font-size:17px;}
+.tbl_ltype tbody .al_middle .tlt_wrap .color_op{font-size:14px;}
+.tbl_ltype tbody .al_middle .count{font-size:17px;}
+.tbl_ltype tbody .al_middle .price{font-size:18px;}
+.price_wrap span{font-size:18px; font-weight: bold;}
+
+.tblwrap .tbl_wtype1 th{font-size:15px; white-space: nowrap; padding: 5px 10px;}
+.tblwrap .tbl_wtype1 .order-member-info{font-size:15px;}
+
+.tblwrap .tbl_wtype1 .p_txt{}
+
+/*최종결제 금액*/
+.float_right .sum_box .tlt{font-size:18px;}
+.float_right .sum_box .clearfix .sub_total190816{font-size:15px;}
+ .float_right .sum_box .clearfix .delch_wrap190816 p{font-size:15px; white-space: nowrap;}
+ .float_right .sum_box .clearfix #deliveryCost{font-size:15px;}
+ .float_right .sum_box .total{}
+ .float_right .sum_box .total .clearfix{font-size:18px;}
+ 

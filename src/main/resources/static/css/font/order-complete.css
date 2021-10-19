@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+/*order-complete font*/
+/*상품 정보*/
+.tblwrap .al_middle .frt .pt_list_all .tlt_wrap .tlt{font-size:14px;}
+.tblwrap .al_middle .frt .pt_list_all .tlt_wrap .sb_tlt{font-size:17px;}
+.tblwrap .al_middle .frt .pt_list_all .tlt_wrap .color_op{font-size:14px;}
+
+.tblwrap .al_middle .count{font-size:17px;}
+.tblwrap .al_middle .price_wrap .price{font-size:18px; white-space: nowrap;}
+
+/*상품 합계*/
+.total_wrap .total_price_wrap dt{white-space: nowrap; display: inline-block; font-size:18px;}
+.total_wrap .total_price_wrap dd{white-space: nowrap; display: inline-block; font-size:18px;}
+.total_wrap .total_price_wrap span{white-space: nowrap; display: inline-block; font-size:18px;}
+.total_wrap .total_price_wrap .tlt_ship{display: inline;}
+
+/*결제 수단*/
+.tblwrap .mb40 .tbl_wtype1 .th_space{font-size:40px;}
+.tblwrap .mb40 .tbl_wtype1 td{font-size:17px;}
+
+.order .total_price_wrap dl{width:280px;}
+.order{padding: 20px 0 30px 0;}
+.order .total_price_wrap .total dd{
+	width: 180px;
+    color: #c69c6c;
+    font-size: 20px;
+    text-align: right;
+}

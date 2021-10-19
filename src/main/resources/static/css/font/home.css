@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+/*header font*/
+
+#headerWrap .header_main1903 .brand_menu1903 .clearfix .on a{font-size: 20px;}
+#headerWrap .header_main1903 .brand_menu1903 .clearfix .brand_menu_guide_text{font-size: 18px;}
+ 
+/*home font*/
+.home_product_list_item .text-center .brand_name{font-size:18px;}
+.home_product_list_item .text-center .name{font-size:20px; font-weight: bold; margin: 5px;}
+.home_product_list_item .text-center .price{font-size:18px;}
+
+/*페이징 버튼*/
+.paginigBtn .check{border: 1px solid; padding: 5px; border-radius: 20%;  background-color:#295F39; color:#ffffff; font-weight: bold;}
+.paginigBtn{border: 1px solid; padding: 5px; border-radius: 20%; }
+.paginigBtn:hover{border: 1px solid; padding: 5px; border-radius: 20%; background-color:#295F39; color:#ffffff; font-weight: bold;}

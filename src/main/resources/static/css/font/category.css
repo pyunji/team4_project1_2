@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+.drop_down_menu{
+	background-color: #8CB297dd;
+	font-size:28px;
+	padding: 15px;
+	margin: 0 auto;
+	border: 1px solid;
+}
+
+.drop_down_menu .drop_down_inner{
+	margin: 0 15%;
+	text-align: center;
+}
+.drop_down_menu .drop_down_inner .drop_down_list{
+	margin:10px;
+	color: #ffffffff;
+}
+
+.drop_down_menu .drop_down_inner .drop_down_list:hover{
+	margin:10px;
+	color: #295F39;
+}
+
+.drop_down_menu .drop_down_inner .drop_down_list li:hover .depth3{
+	color: #000000;
+}
+
+.drop_down_menu .drop_down_inner .depth3_wrap{
+	margin: 10px;
+
+}
+
+.drop_down_menu .drop_down_inner .depth3_wrap .depth3_element{
+	margin: 10px 0;
+}
+
+.depth3_element a{
+	color: #154E26;
+}
+
+/* Crtegory 글자 크기 */
+#KIDSCategory a{font-size: 16px; white-space: nowrap; font-weight: bold;}
+#LIFESTYLECategory a{font-size: 16px; white-space: nowrap; font-weight: bold;}
+#WOMENCategory a{font-size: 16px; margin: 0 auto; white-space: nowrap; font-weight: bold;}
+#WOMENCategory .drop_down_inner{margin:0px 5%;}
+#MENCategory a{font-size: 16px; white-space: nowrap; font-weight: bold;}
+
