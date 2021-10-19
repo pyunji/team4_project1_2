@@ -8,16 +8,16 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>SpringFramework</title>
-		<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.5.1.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js"></script>
+		<script th:src="@{/jquery/jquery-3.5.1.min.js}"></script>
+		<script th:src="@{/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js}"></script>
      	
      	<!--/* <th:block th:replace="~{common/links}"></th:block> */-->
      	<!--/*=================== links 시작 =================== */-->
      	<th:block th:replace="${links}"></th:block>
      	<!--/*=================== links 끝 =================== */-->
      	
-     	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font/category.css" />
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font/home.css" />
+     	<link rel="stylesheet" th:href="@{/css/font/category.css}" />
+		<link rel="stylesheet" th:href="@{/css/font/home.css}" />
 		</head>
 		<body>
 
@@ -49,16 +49,16 @@
 							<ul class="clearfix">
 								<sec:authorize access="isAnonymous()">
 									<li>
-										<a href="${pageContext.request.contextPath}/member/loginform">로그인</a>
+										<a th:href="@{/member/loginform}">로그인</a>
 									</li>
 								</sec:authorize>
 								<sec:authorize access="isAuthenticated()">
 									<li>
-										<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+										<a th:href="@{/logout}">로그아웃</a>
 									</li>
 									<!--/* 공백 없이 딱 붙어서 나와서 부트스트랩 클래스 추가함 */-->
 									<li class="mr-2">
-										<a href="${pageContext.request.contextPath}/member/orderlist">마이페이지</a>
+										<a th:href="@{/member/orderlist}">마이페이지</a>
 									</li>
 								</sec:authorize>
 							</ul>
@@ -96,58 +96,9 @@
 						<ul class="cate_m cate_banner gnbul2" id="cate_m_main">
 							<sec:authorize access="isAuthenticated()">
 								<li>
-									<a href="${pageContext.request.contextPath}/cart">장바구니</a>
+									<a th:href="@{/cart}">장바구니</a>
 								</li>
 							</sec:authorize>
-	<!--/* 						<li>
-								<a href="" class="">기타2</a>
-							</li>
-							<li>
-								<a href="" class="">기타3</a>
-							</li>
-							<li>
-								<a href="" class="">기타4</a>
-							</li>
-							<li>
-								<a href="" class="">기타5</a>
-							</li>
-							<li>
-								<a href="" class="">기타6</a>
-							</li> */-->
-						</ul>
-					</div>
-					<!--/* category end */-->
-					
-					<!--/* 검색, 위시리스트, 장바구니 아이콘 */-->
-					<!--/* <div class="util_menu util_menu1803">
-						<ul class="clearfix">
-							<li>
-								<a href="">
-									<span class="ico_sh">search</span>
-								</a>
-							</li>
-							<li>
-								<a href="">
-									<span class="ico wishlist">wish list</span>
-									<span class="count" style="display: inline;">
-										(
-										<span id="wishlistCount">0</span>
-										)
-									</span>
-								</a>
-							</li>
-							<li>
-								<a href="${pageContext.request.contextPath}/cart/cartlist">
-									<span class="ico cart">장바구니</span>
-									<span class="count">
-										(
-										<span id="cartCount">0</span>
-										)
-									</span>
-								</a>
-							</li>
-						</ul>
-					</div> */-->
 				</div>
 	
 				<!--/* 카테고리2,3 시작 */-->
@@ -160,10 +111,10 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/KIDS/CLOTHING/TOP">TOP</a>
+									<a class="depth3" th:href="@{/product/KIDS/CLOTHING/TOP}">TOP</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/KIDS/CLOTHING/BOTTOM">BOTTOM</a>
+									<a class="depth3" th:href="@{/product/KIDS/CLOTHING/BOTTOM}">BOTTOM</a>
 								</li>
 							</ul>
 						</li>
@@ -174,7 +125,7 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/KIDS/KIDS ACC./OTHER ACCESSORIES">OTHER ACCESSORIES</a>
+									<a class="depth3" th:href="@{/product/KIDS/KIDS ACC./OTHER ACCESSORIES}">OTHER ACCESSORIES</a>
 								</li>
 							</ul>
 						</li>
@@ -190,13 +141,13 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/LIFESTYLE/HOME/FABRIC">FABRIC</a>
+									<a class="depth3" th:href="@{/product/LIFESTYLE/HOME/FABRIC}">FABRIC</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/LIFESTYLE/HOME/OTHER ACCESSORIES">OTHER ACCESSORIES</a>
+									<a class="depth3" th:href="@{/product/LIFESTYLE/HOME/OTHER ACCESSORIES}">OTHER ACCESSORIES</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/LIFESTYLE/HOME/FRAGRANCE">FRAGRANCE</a>
+									<a class="depth3" th:href="@{/product/LIFESTYLE/HOME/FRAGRANCE}">FRAGRANCE</a>
 								</li>
 							</ul>
 						</li>
@@ -207,7 +158,7 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/LIFESTYLE/BATH/OTHER ACCESSORIES">OTHER ACCESSORIES</a>
+									<a class="depth3" th:href="@{/product/LIFESTYLE/BATH/OTHER ACCESSORIES}">OTHER ACCESSORIES</a>
 								</li>
 							</ul>
 						</li>
@@ -223,16 +174,16 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/PANTS/SHORTS">SHORTS</a>
+									<a class="depth3" th:href="@{/product/WOMEN/PANTS/SHORTS}">SHORTS</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/PANTS/CASUAL">CASUAL</a>
+									<a class="depth3" th:href="@{/product/WOMEN/PANTS/CASUAL}">CASUAL</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/PANTS/FORMAL">FORMAL</a>
+									<a class="depth3" th:href="@{/product/WOMEN/PANTS/FORMAL}">FORMAL</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/PANTS/DENIM">DENIM</a>
+									<a class="depth3" th:href="@{/product/WOMEN/PANTS/DENIM}">DENIM</a>
 								</li>
 							</ul>
 						</li>
@@ -243,16 +194,16 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SKIRT/MINI SKIRT">MINI SKIRT</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SKIRT/MINI SKIRT}">MINI SKIRT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SKIRT/PENCIL SKIRT">PENCIL SKIRT</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SKIRT/PENCIL SKIRT}">PENCIL SKIRT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SKIRT/FLARE SKIRT">FLARE SKIRT</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SKIRT/FLARE SKIRT}">FLARE SKIRT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SKIRT/LONG MAXI SKIRT">LONG/MAXI SKIRT</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SKIRT/LONG MAXI SKIRT}">LONG/MAXI SKIRT</a>
 								</li>
 							</ul>
 						</li>
@@ -263,13 +214,13 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/FASHION ACC./BAGS">BAGS</a>
+									<a class="depth3" th:href="@{/product/WOMEN/FASHION ACC./BAGS}">BAGS</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/FASHION ACC./ETC">ETC</a>
+									<a class="depth3" th:href="@{/product/WOMEN/FASHION ACC./ETC}">ETC</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/FASHION ACC./SCARF%20MUFFLER">SCARF/MUFFLER</a>
+									<a class="depth3" th:href="@{/product/WOMEN/FASHION ACC./SCARF%20MUFFLER}">SCARF/MUFFLER</a>
 								</li>
 							</ul>
 						</li>
@@ -280,13 +231,13 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/DRESS/MINI DRESS">MINI DRESS</a>
+									<a class="depth3" th:href="@{/product/WOMEN/DRESS/MINI DRESS}">MINI DRESS</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/DRESS/MIDI DRESS">MIDI DRESS</a>
+									<a class="depth3" th:href="@{/product/WOMEN/DRESS/MIDI DRESS}">MIDI DRESS</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/DRESS/LONG%20MAXI DRESS">LONG/MAXI DRESS</a>
+									<a class="depth3" th:href="@{/product/WOMEN/DRESS/LONG%20MAXI DRESS}">LONG/MAXI DRESS</a>
 								</li>
 							</ul>
 						</li>
@@ -297,16 +248,16 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/Top/Blouse">Blouse</a>
+									<a class="depth3" th:href="@{/product/WOMEN/Top/Blouse}">Blouse</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/Top/T-Shirts">T-Shirts</a>
+									<a class="depth3" th:href="@{/product/WOMEN/Top/T-Shirts}">T-Shirts</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/Top/Knit">Knit</a>
+									<a class="depth3" th:href="@{/product/WOMEN/Top/Knit}">Knit</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/Top/Shirts">Shirts</a>
+									<a class="depth3" th:href="@{/product/WOMEN/Top/Shirts}">Shirts</a>
 								</li>
 							</ul>
 						</li>
@@ -317,22 +268,22 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/OUTER/JUMPER">JUMPER</a>
+									<a class="depth3" th:href="@{/product/WOMEN/OUTER/JUMPER}">JUMPER</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/OUTER/Cardigan%20Vest">Cardigan/Vest</a>
+									<a class="depth3" th:href="@{/product/WOMEN/OUTER/Cardigan%20Vest}">Cardigan/Vest</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/OUTER/JACKET">JACKET</a>
+									<a class="depth3" th:href="@{/product/WOMEN/OUTER/JACKET}">JACKET</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/OUTER/TRENCH COAT">TRENCH COAT</a>
+									<a class="depth3" th:href="@{/product/WOMEN/OUTER/TRENCH COAT}">TRENCH COAT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/OUTER/COAT">COAT</a>
+									<a class="depth3" th:href="@{/product/WOMEN/OUTER/COAT}">COAT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/OUTER/DOWN JUMPER">DOWN JUMPER</a>
+									<a class="depth3" th:href="@{/product/WOMEN/OUTER/DOWN JUMPER}">DOWN JUMPER</a>
 								</li>
 							</ul>
 						</li>
@@ -343,70 +294,70 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/LANVIN COLLECTION : IT. 1">LANVIN COLLECTION : IT. 1</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/LANVIN COLLECTION : IT. 1}">LANVIN COLLECTION : IT. 1</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/LANVIN COLLECTION : IT. 1">LANVIN COLLECTION : IT. 1</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/LANVIN COLLECTION : IT. 1}">LANVIN COLLECTION : IT. 1</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/SJSJ : piknic collection">SJSJ : piknic collection</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/SJSJ : piknic collection}">SJSJ : piknic collection</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/SYSTEM : MONOCROME">SYSTEM : MONOCROME</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/SYSTEM : MONOCROME}">SYSTEM : MONOCROME</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/O'2nd : M%20M (PARIS)">O'2nd : M/M (PARIS)</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/O'2nd : M%20M (PARIS)}">O'2nd : M/M (PARIS)</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/O'2nd : WE">O'2nd : WE</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/O'2nd : WE}">O'2nd : WE</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/OBZEE : ICONIC OBZEE">OBZEE : ICONIC OBZEE</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/OBZEE : ICONIC OBZEE}">OBZEE : ICONIC OBZEE</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/SYSTEM : PARIS PT">SYSTEM : PARIS PT</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/SYSTEM : PARIS PT}">SYSTEM : PARIS PT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/the CASHMERE : WELLNESS LINE">the CASHMERE : WELLNESS LINE</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/the CASHMERE : WELLNESS LINE}">the CASHMERE : WELLNESS LINE</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/LATT : FW 온라인 단독">LATT : FW 온라인 단독</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/LATT : FW 온라인 단독}">LATT : FW 온라인 단독</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/CODE MINE M (ME)">CODE MINE M (ME)</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/CODE MINE M (ME)}">CODE MINE M (ME)</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/TIME : ONLINE EXCLUSIVE">TIME : ONLINE EXCLUSIVE</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/TIME : ONLINE EXCLUSIVE}">TIME : ONLINE EXCLUSIVE</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/TIME SIGNATURE SUIT">TIME SIGNATURE SUIT</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/TIME SIGNATURE SUIT}">TIME SIGNATURE SUIT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/SYSTEM : SYSTEM X 노상호">SYSTEM : SYSTEM X 노상호</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/SYSTEM : SYSTEM X 노상호}">SYSTEM : SYSTEM X 노상호</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/MINE : CODE MINE A (ATELIER)">MINE : CODE MINE A (ATELIER)</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/MINE : CODE MINE A (ATELIER)}">MINE : CODE MINE A (ATELIER)</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/SYSTEM : A TOUCH OF ELEGANCE">SYSTEM : A TOUCH OF ELEGANCE</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/SYSTEM : A TOUCH OF ELEGANCE}">SYSTEM : A TOUCH OF ELEGANCE</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/FOURM STUDIO : RE:STUDIO">FOURM STUDIO : RE:STUDIO</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/FOURM STUDIO : RE:STUDIO}">FOURM STUDIO : RE:STUDIO</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/FOURM THE STORE : PALETTE">FOURM THE STORE : PALETTE</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/FOURM THE STORE : PALETTE}">FOURM THE STORE : PALETTE</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/LATT : New Leisure Essential">LATT : New Leisure Essential</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/LATT : New Leisure Essential}">LATT : New Leisure Essential</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/OBZEE : ESSENTIAL">OBZEE : ESSENTIAL</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/OBZEE : ESSENTIAL}">OBZEE : ESSENTIAL</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/TIME : 1993 CLUB">TIME : 1993 CLUB</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/TIME : 1993 CLUB}">TIME : 1993 CLUB</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/WOMEN/SPECIAL SHOP/tomgreyhound: THE GREY">tomgreyhound: THE GREY</a>
+									<a class="depth3" th:href="@{/product/WOMEN/SPECIAL SHOP/tomgreyhound: THE GREY}">tomgreyhound: THE GREY</a>
 								</li>
 							</ul>
 						</li>
@@ -422,13 +373,13 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/TOP/KNIT">KNIT</a>
+									<a class="depth3" th:href="@{/product/MEN/TOP/KNIT}">KNIT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/TOP/SHIRTS">SHIRTS</a>
+									<a class="depth3" th:href="@{/product/MEN/TOP/SHIRTS}">SHIRTS</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/TOP/T-SHIRTS">T-SHIRTS</a>
+									<a class="depth3" th:href="@{/product/MEN/TOP/T-SHIRTS}">T-SHIRTS</a>
 								</li>
 							</ul>
 						</li>
@@ -439,19 +390,19 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/PANTS/쇼츠">쇼츠</a>
+									<a class="depth3" th:href="@{/product/MEN/PANTS/쇼츠}">쇼츠</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/PANTS/루즈%20테이퍼드">루즈/테이퍼드</a>
+									<a class="depth3" th:href="@{/product/MEN/PANTS/루즈%20테이퍼드}">루즈/테이퍼드</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/PANTS/데님">데님</a>
+									<a class="depth3" th:href="@{/product/MEN/PANTS/데님}">데님</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/PANTS/조거%20트랙">조거/트랙</a>
+									<a class="depth3" th:href="@{/product/MEN/PANTS/조거%20트랙}">조거/트랙</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/PANTS/스트레이트">스트레이트</a>
+									<a class="depth3" th:href="@{/product/MEN/PANTS/스트레이트}">스트레이트</a>
 								</li>
 							</ul>
 						</li>
@@ -462,13 +413,13 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/Suit/SUIT PANTS">SUIT PANTS</a>
+									<a class="depth3" th:href="@{/product/MEN/Suit/SUIT PANTS}">SUIT PANTS</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/Suit/DRESS SHIRTS">DRESS SHIRTS</a>
+									<a class="depth3" th:href="@{/product/MEN/Suit/DRESS SHIRTS}">DRESS SHIRTS</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/Suit/SUIT JACKET">SUIT JACKET</a>
+									<a class="depth3" th:href="@{/product/MEN/Suit/SUIT JACKET}">SUIT JACKET</a>
 								</li>
 							</ul>
 						</li>
@@ -479,22 +430,22 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/OUTER/JUMPER">JUMPER</a>
+									<a class="depth3" th:href="@{/product/MEN/OUTER/JUMPER}">JUMPER</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/OUTER/JACKET">JACKET</a>
+									<a class="depth3" th:href="@{/product/MEN/OUTER/JACKET}">JACKET</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/OUTER/CARDIGAN%20VEST">CARDIGAN/VEST</a>
+									<a class="depth3" th:href="@{/product/MEN/OUTER/CARDIGAN%20VEST}">CARDIGAN/VEST</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/OUTER/TRENCH COAT">TRENCH COAT</a>
+									<a class="depth3" th:href="@{/product/MEN/OUTER/TRENCH COAT}">TRENCH COAT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/OUTER/COAT">COAT</a>
+									<a class="depth3" th:href="@{/product/MEN/OUTER/COAT}">COAT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/OUTER/DOWN JUMPER">DOWN JUMPER</a>
+									<a class="depth3" th:href="@{/product/MEN/OUTER/DOWN JUMPER}">DOWN JUMPER</a>
 								</li>
 							</ul>
 						</li>
@@ -505,31 +456,31 @@
 							</strong>
 							<ul class="depth3_wrap">
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/SPECIAL SHOP/SYSTEM HOMME : TYPE 2">SYSTEM HOMME : TYPE 2</a>
+									<a class="depth3" th:href="@{/product/MEN/SPECIAL SHOP/SYSTEM HOMME : TYPE 2}">SYSTEM HOMME : TYPE 2</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/SPECIAL SHOP/TIME HOMME : ONLINE EXCLUSIVE">TIME HOMME : ONLINE EXCLUSIVE</a>
+									<a class="depth3" th:href="@{/product/MEN/SPECIAL SHOP/TIME HOMME : ONLINE EXCLUSIVE}">TIME HOMME : ONLINE EXCLUSIVE</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/SPECIAL SHOP/CLUB MONACO : COATS FOR MEN">CLUB MONACO : COATS FOR MEN</a>
+									<a class="depth3" th:href="@{/product/MEN/SPECIAL SHOP/CLUB MONACO : COATS FOR MEN}">CLUB MONACO : COATS FOR MEN</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/SPECIAL SHOP/CLUB MONACO : 폴로 한잔의 여유">CLUB MONACO : 폴로 한잔의 여유</a>
+									<a class="depth3" th:href="@{/product/MEN/SPECIAL SHOP/CLUB MONACO : 폴로 한잔의 여유}">CLUB MONACO : 폴로 한잔의 여유</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/SPECIAL SHOP/SYSTEM HOMME : PARIS PT">SYSTEM HOMME : PARIS PT</a>
+									<a class="depth3" th:href="@{/product/MEN/SPECIAL SHOP/SYSTEM HOMME : PARIS PT}">SYSTEM HOMME : PARIS PT</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/SPECIAL SHOP/SYSTEM HOMME : SYSTEM X 275C">SYSTEM HOMME : SYSTEM X 275C</a>
+									<a class="depth3" th:href="@{/product/MEN/SPECIAL SHOP/SYSTEM HOMME : SYSTEM X 275C}">SYSTEM HOMME : SYSTEM X 275C</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/SPECIAL SHOP/THEHANDSOME 5TH : %23 WITH US">THEHANDSOME 5TH : # WITH US</a>
+									<a class="depth3" th:href="@{/product/MEN/SPECIAL SHOP/THEHANDSOME 5TH : %23 WITH US}">THEHANDSOME 5TH : # WITH US</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/SPECIAL SHOP/SYSTEM HOMME : (NEW) SWEATS">SYSTEM HOMME : (NEW) SWEATS</a>
+									<a class="depth3" th:href="@{/product/MEN/SPECIAL SHOP/SYSTEM HOMME : (NEW) SWEATS}">SYSTEM HOMME : (NEW) SWEATS</a>
 								</li>
 								<li class="depth3_element">
-									<a class="depth3" href="${pageContext.request.contextPath}/product/MEN/SPECIAL SHOP/TIME HOMME THE GENTLE%20">TIME HOMME THE GENTLE</a>
+									<a class="depth3" th:href="@{/product/MEN/SPECIAL SHOP/TIME HOMME THE GENTLE%20}">TIME HOMME THE GENTLE</a>
 								</li>
 							</ul>
 						</li>
