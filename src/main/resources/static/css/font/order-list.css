@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+/*최상위 제목(주문취소 등..)*/
+#menuTitle{font-size: 40px; font-weight: bold; margin: 20px;}
+
+/*order-list font*/
+#listBody .al_middle .pt_list_all .tlt_wrap .tlt{font-size:13px;}
+#listBody .al_middle .pt_list_all .tlt_wrap .sb_tlt{font-size:16px; display: block;}
+#listBody .al_middle .pt_list_all .tlt_wrap .color_op{font-size:13px;}
+
+.lnb_wrap .lnb dt {
+    padding: 0 0 5px 5px;
+    font-size: 18px;
+    color: #222222;
+    font-weight: bold;
+}
+
+.lnb_wrap .lnb  dd a{
+	padding: 0 0 5px 5px;
+    font-size: 13px;
+    color: #333333;
+}
+
+#listBody .al_middle td{white-space: nowrap;}
+
+#listBody .al_middle .count{white-space: nowrap;}
+#listBody .al_middle .price{white-space: nowrap;} 
+
+/*주문 날짜*/
+.order_info .order_date .complete{white-space: nowrap;}
+#orderDate{white-space: nowrap;}
