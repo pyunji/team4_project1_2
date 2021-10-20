@@ -73,7 +73,7 @@
 								<td class="ono">
 									<p class="num">
 							<!-- 주문번호와 // 상픔 정보의 대한 경로  -->
-									<a th:href="@{/order/ordercomplete}" style="text-decoration: underline;">[[${orderx.orders.id}]]</a></p>
+									<a th:href="@{|/order/ordercomplete?p=${orderx.orders.id}|}" style="text-decoration: underline;">[[${orderx.orders.id}]]</a></p>
 							<!-- 주문한 날짜 bytime = 주문한 날짜 입니다. -->	
 									<script>console.log("${bytime}")</script>
 									<span class="sum_date" th:text="${#dates.format(orderx.orderItem.orderByTime,'yyyy.MM.dd')}"></span>
