@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mycompany.webapp.dto.CartProduct;
 import com.mycompany.webapp.dto.OrderComplete;
@@ -109,7 +110,7 @@ public class OrderController {
 	// 주문이 완료된 페이지 입니다 
 	@GetMapping("/ordercomplete")
 	public String showOrder(@RequestParam("p") String orderId, Principal principal, Model model) {
-
+		
 		String mid = principal.getName();
 		// 상품 정보, 상품합계쪽을 OrderComplete 폼에 뿌립니다.
 		List<OrderComplete> orderProduct = orderService.selectProductByorderId(mid, orderId);
@@ -163,7 +164,7 @@ public class OrderController {
 	 * InitBinder의 이름과 Valid의 ModelAttribute의 이름을 일치시켜줘야한다.
 	 * BindingResult에는 검증 결과가 들어간다. */
 	@PostMapping("/ordercomplete")
-	public String orderValid(@ModelAttribute("orderForm") @Valid Orders orders, BindingResult bindingResult, Model model, Principal principal, Orders order, String orderContent) {
+	public String orderValid(@ModelAttribute("orderForm") @Valid Orders orders, BindingResult bindingResult, Model model, Principal principal, Orders order, String orderContent, RedirectAttributes attributes) {
 		// 서버측 Vlidator 처리
 		if (bindingResult.hasErrors()) {// BindingResult의 error가 존재할 경우 -> 에러메시지를 orderform에 전달
 			logger.info("Validatior에 들어왔고, 검증이 올바르지 않음");
@@ -182,8 +183,9 @@ public class OrderController {
 			 * Cart 테이블에서 해당 상품 삭제 update: product_stock 테이블에서 남은 수량 업데이트 (주문한 수량만큼 차감)
 			 */
 			String madeOrderId = orderService.makeOrder(principal, products, order, orderContent);
-			model.addAttribute("p", madeOrderId);
+			attributes.addAttribute("p", madeOrderId);
 
+			
 			// 주문 오류시 오류창으로 가게끔 하는 부분 필요
 			return "redirect:/order/ordercomplete";
 		}
