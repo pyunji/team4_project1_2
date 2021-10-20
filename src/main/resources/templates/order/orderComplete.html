@@ -3,7 +3,7 @@
 <th:block th:replace="~{common/layout::setLayout(~{this::links},~{this::content})}">
 
 <th:block th:fragment="links">
-	<th:block th:replace="~{common/links}"/>
+	<th:block th:replace="~{special/orderCompleteLinks}"/>
 </th:block>
 <th:block th:fragment="content">
 
@@ -22,7 +22,7 @@
 			<p class="s_title">주문번호 :[[${orderProduct[0].orders.id}]] 
 			
 	<!--주문한 시간 -->	
-			(주문일시 : <span th:text ="${#dates.format(orderProduct[0].orderItem.orderByTime,'yyyy.MM.dd HH:mm')}">)</span></p>
+			(주문일시 : <span th:text ="${#dates.format(orderProduct[0].orderItem.orderByTime,'yyyy.MM.dd HH:mm')}"></span>)</p>
 			
 		<!-- fn:substring은 문자열 자르기를 통해 1번 인덱스만 가져온다 // == '1'이면 은행을 말합니다. '0' 이면 카드입니다. 아래 결제수단에서 나옴  -->	
 		<!-- c:if를 통해 카드로 결제를 하면 입금예정 시간이 나오지 않고 실시간 계좌이체로 결제를 진행하면 계좌 입금 남은 시간이 나옵니다.-->
