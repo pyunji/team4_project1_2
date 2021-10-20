@@ -66,7 +66,7 @@
 					</div>
 				</div>
 	
-	
+				<div>
 				<div class="gnbwarp com clearfix">
 					<h1 class="logo logo1903">
 						<a href="/" onclick="GA_Event('공통', '로고', '상단');">thehandsome.com</a>
@@ -79,16 +79,16 @@
 						<!--/* 카테고리1 시작 */-->
 						<ul class="cate_m cate_banner gnbul1" id="cate_m_main">
 							<li>
-								<a class="gnb_brand dropbtn dropbtn" id="KIDS" onclick="dropBtnMouseover(this);" ondblclick="cat1DoubleClick(this);">KIDS</a>
+								<a class="gnb_brand dropbtn dropbtn" id="KIDS" th:onclick="dropBtnMouseover(this);" th:ondblclick="cat1DoubleClick(this);">KIDS</a>
 							</li>
 							<li>
-								<a class="gnb_brand dropbtn dropbtn" id="LIFESTYLE" onclick="dropBtnMouseover(this);" ondblclick="cat1DoubleClick(this);">LIFESTYLE</a>
+								<a class="gnb_brand dropbtn dropbtn" id="LIFESTYLE" th:onclick="dropBtnMouseover(this);" th:ondblclick="cat1DoubleClick(this);">LIFESTYLE</a>
 							</li>
 							<li>
-								<a class="gnb_brand dropbtn dropbtn" id="WOMEN" onclick="dropBtnMouseover(this);" ondblclick="cat1DoubleClick(this);">WOMEN</a>
+								<a class="gnb_brand dropbtn dropbtn" id="WOMEN" th:onclick="dropBtnMouseover(this);" th:ondblclick="cat1DoubleClick(this);">WOMEN</a>
 							</li>
 							<li>
-								<a class="gnb_brand dropbtn dropbtn" id="MEN" onclick="dropBtnMouseover(this);" ondblclick="cat1DoubleClick(this);">MEN</a>
+								<a class="gnb_brand dropbtn dropbtn" id="MEN" th:onclick="dropBtnMouseover(this);" th:ondblclick="cat1DoubleClick(this);">MEN</a>
 							</li>
 						</ul>
 						<!--/* 카테고리1 끝 */-->
@@ -100,8 +100,10 @@
 								</li>
 							</th:block>
 				</div>
-	
-				<!--/* 카테고리2,3 시작 */-->
+				
+			</div>
+			
+			<!--/* 카테고리2,3 시작 */-->
 				<!--/* KIDS 카테고리 */-->
 				<div id="KIDSCategory" class="drop_down_menu" style="display: none;">
 					<ul class="list-group list-group-horizontal drop_down_inner">
@@ -486,8 +488,39 @@
 						</li>
 					</ul>
 				</div>
+				</div>
 				<!--/* 카테고리2,3 끝 */-->
-				<script>
+		</div>
+     
+     	<!--/*=================== content 시작 =================== */-->
+     	<th:block th:replace="${content}"></th:block>
+     	<!--/*=================== content 끝 =================== */-->
+     	
+     	<div id="footerWrap">
+	
+			<!--footer_cnts2 -->
+			<div class="footer_cnts2 clearfix">
+				<div class="footer">
+					<div class="cnts2_left">
+						<a href="/ko/footer/footerTermBusiness" onclick="GA_Event('공통','푸터_CNT','서비스이용약관');">서비스이용약관</a>
+						<a href="/ko/footer/footerPrivacy" onclick="GA_Event('공통','푸터_CNT','개인정보처리방침');"><strong>개인정보처리방침<!-- 개인정보처리방침 --></strong></a>
+						<a href="javascript:void(0);" class="box" onclick="javascript:window.open('http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=1208126337', 'communicationViewPopup', 'width=750, height=700');GA_Event('공통','푸터_CNT','통신판매사업자정보확인');">통신판매사업자정보확인</a>
+						<a href="https://mark.inicis.com/mark/escrow_popup.php?mid=handsomep1" class="box" onclick="GA_Event('공통','푸터_CNT','에스크로서비스가입확인');">에스크로서비스 가입 확인</a>
+						<p class="top_p"><span>(주)한섬</span><span>대표이사 : 김민덕</span><span>서울시 강남구 도산대로 523 한섬빌딩</span><span>TEL 1800-5700</span><span class="bgnone">FAX 02-6078-2856</span></p>
+						<p><span>사업자등록번호 120-81-26337</span><span>통신판매업신고번호 강남 제 00826호</span><span>개인정보관리책임자 이정득</span><span class="bgnone">호스팅서비스 : (주) 한섬</span></p>
+						<p class="copyright">COPYRIGHT © 2017 HANDSOME. ALL RIGHT RESERVED.</p>
+					</div>
+					
+					<div class="cnts2_right">
+						
+					</div>
+				</div>
+			</div>
+			<!--/*footer_cnts2 */-->
+		</div>
+	</body>
+     
+     <script th:inline="javascript">
 					/*author : 채연*/
 					//카테고리1 클릭시 실행
 					function dropBtnMouseover(cat) {
@@ -538,7 +571,8 @@
 					//카테고리1 더블클릭시 해당 링크로 이동
 					function cat1DoubleClick(cat1) {
 						let depth1 = $(cat1).text();
-						location.href = '${pageContext.request.contextPath}/product/' + depth1;
+						//location.href = '${pageContext.request.contextPath}/product/' + depth1;
+						location.href = [[@{/product/}]]+depth1;
 					}
 					
 					//cat2 클릭시 해당 링크로 이동
@@ -546,41 +580,13 @@
 						let depth1 = $(cat2).parents("div").attr("id");
 						depth1 = depth1.replace("Category", "");
 						let depth2 = $(cat2).text();
-						let loc = "${pageContext.request.contextPath}/product/" + depth1 + "/" + depth2;
+						//let loc = "${pageContext.request.contextPath}/product/" + depth1 + "/" + depth2;
+						let loc = [[@{/product/}]] + depth1 + "/" + depth2;
+						
 						loc = encodeURI(loc);
-						location.href = loc;
+						location.href= loc;
 					}
 				</script>
-			</div>
-		</div>
-     
-     	<!--/*=================== content 시작 =================== */-->
-     	<th:block th:replace="${content}"></th:block>
-     	<!--/*=================== content 끝 =================== */-->
-     	
-     	<div id="footerWrap">
-	
-			<!--footer_cnts2 -->
-			<div class="footer_cnts2 clearfix">
-				<div class="footer">
-					<div class="cnts2_left">
-						<a href="/ko/footer/footerTermBusiness" onclick="GA_Event('공통','푸터_CNT','서비스이용약관');">서비스이용약관</a>
-						<a href="/ko/footer/footerPrivacy" onclick="GA_Event('공통','푸터_CNT','개인정보처리방침');"><strong>개인정보처리방침<!-- 개인정보처리방침 --></strong></a>
-						<a href="javascript:void(0);" class="box" onclick="javascript:window.open('http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=1208126337', 'communicationViewPopup', 'width=750, height=700');GA_Event('공통','푸터_CNT','통신판매사업자정보확인');">통신판매사업자정보확인</a>
-						<a href="https://mark.inicis.com/mark/escrow_popup.php?mid=handsomep1" class="box" onclick="GA_Event('공통','푸터_CNT','에스크로서비스가입확인');">에스크로서비스 가입 확인</a>
-						<p class="top_p"><span>(주)한섬</span><span>대표이사 : 김민덕</span><span>서울시 강남구 도산대로 523 한섬빌딩</span><span>TEL 1800-5700</span><span class="bgnone">FAX 02-6078-2856</span></p>
-						<p><span>사업자등록번호 120-81-26337</span><span>통신판매업신고번호 강남 제 00826호</span><span>개인정보관리책임자 이정득</span><span class="bgnone">호스팅서비스 : (주) 한섬</span></p>
-						<p class="copyright">COPYRIGHT © 2017 HANDSOME. ALL RIGHT RESERVED.</p>
-					</div>
-					
-					<div class="cnts2_right">
-						
-					</div>
-				</div>
-			</div>
-			<!--/*footer_cnts2 */-->
-		</div>
-	</body>
      
     </th:block>
 </html>

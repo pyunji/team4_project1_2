@@ -43,6 +43,6 @@
 #KIDSCategory a{font-size: 16px; white-space: nowrap; font-weight: bold;}
 #LIFESTYLECategory a{font-size: 16px; white-space: nowrap; font-weight: bold;}
 #WOMENCategory a{font-size: 16px; margin: 0 auto; white-space: nowrap; font-weight: bold;}
-#WOMENCategory .drop_down_inner{margin:0px 5%;}
+#WOMENCategory .drop_down_inner{}
 #MENCategory a{font-size: 16px; white-space: nowrap; font-weight: bold;}
 
