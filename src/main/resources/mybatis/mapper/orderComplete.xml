@@ -97,7 +97,7 @@
    </resultMap>
    
    <select id="selectProductByorderId" parameterType="map" resultMap="orderCompleteMap">
-      select order_item.product_stock_id as orderstockid,orders_id as ordersid, order_item.count,
+      select order_item.product_stock_id as orderstockid,orders_id as ordersid, order_item.count,product_color.id as pcolorId,
             brand.name as brandName,product_common.name as productName,product_stock.size_code,order_by_time,used_mileage,
             product_color.color_code,total_price, before_dc_price, after_dc_price,img1
          from order_item,orders,brand,product_common,product_color,product_stock
