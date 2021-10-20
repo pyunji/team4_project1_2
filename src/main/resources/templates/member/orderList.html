@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{common/layout::setLayout(~{this::links}, ~{this::content})}">
 <th:block th:fragment="links">
-	<th:block th:insert="~{common/links}"></th:block>
+	<th:block th:replace="~{special/orderListLinks}"></th:block>
 </th:block>
 <th:block th:fragment="content">
 
