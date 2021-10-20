@@ -1,9 +1,13 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ include file="/WEB-INF/views/common/headerAboveLinks.jsp"%>
-<%@ include file="/WEB-INF/views/common/links.jsp"%>
-<%@ include file="/WEB-INF/views/special/headerErrorBelowLinks.jsp"%>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{common/layout::setLayout(~{this::links}, ~{this::content})}">
 
-<html lang="ko">
+	<th:block th:fragment="links">
+		<th:block th:replace="~{special/productDetailLinks}"></th:block>
+	</th:block> 
+	
+	<th:block th:fragment="content">
+
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -97,4 +101,7 @@
 	</div>
 </div>
 
-</body></html>
+</body>
+</th:block>
+</th:block>
+</html>
