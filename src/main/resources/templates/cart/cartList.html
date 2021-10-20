@@ -1,278 +1,282 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<%-- <%@ include file="/WEB-INF/views/special/cartListLinks.jsp"%> --%>
-<%-- <%@ include file="/WEB-INF/views/common/headerBelowLinks.jsp"%> --%>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{common/layout::setLayout(~{this::links}, ~{this::content})}">
+<th:block th:fragment="links">
+	<th:block th:insert="~{common/links}"></th:block>
+</th:block>
 
-<div class="orderwrap1807">
-	<div id="bodyWrap">
-		<h3 class="cnts_title cnts_tlt1807">
-			<span>장바구니</span>
-		</h3>
+<th:block th:fragment="content">
+	<div class="orderwrap1807">
+		<div id="bodyWrap">
+			<h3 class="cnts_title cnts_tlt1807">
+				<span>장바구니</span>
+			</h3>
 
-		<div class="cart-form">
-			<div class="tblwrap">
-				<table class="tbl_ltype">
-					<caption>장바구니</caption>
-					<colgroup>
-						<col style="width: 10px;">
-						<col>
-						<col style="width: 150px">
-						<col style="width: 105px">
-						<col style="width: 110px">
-					</colgroup>
-					<thead>
-						<%-- 테이블 헤더의 시작 --%>
-						<tr>
-							<th scope="col">
-								<!-- 전체 체크박스를 컨트롤하는 마스터 체크박스 -->
-								<input type="checkbox" id="entryCheckAll" name="entryCheckAll" onclick="checkAll(this);selectProductCount();selectProductPrice();" />
-							</th>
-							<th scope="col">상품정보</th>
-							<th scope="col">수량</th>
-							<th scope="col">판매가</th>
-							<th scope="col">선택</th>
-						</tr>
-						<%--//테이블 헤더의 끝 --%>
-					</thead>
-					<tbody>
-						<!-- *product:[pcommonId, pcolorId, pstockId, quantity, brandName, productName, sizeCode, colorCode, 
+			<div class="cart-form">
+				<div class="tblwrap">
+					<table class="tbl_ltype">
+						<caption>장바구니</caption>
+						<colgroup>
+							<col style="width: 10px;">
+							<col>
+							<col style="width: 150px">
+							<col style="width: 105px">
+							<col style="width: 110px">
+						</colgroup>
+						<thead>
+							<!-- 테이블 헤더의 시작 -->
+							<tr>
+								<th scope="col">
+									<!-- 전체 체크박스를 컨트롤하는 마스터 체크박스 -->
+									<input type="checkbox" id="entryCheckAll" name="entryCheckAll" onclick="checkAll(this);selectProductCount();selectProductPrice();" />
+								</th>
+								<th scope="col">상품정보</th>
+								<th scope="col">수량</th>
+								<th scope="col">판매가</th>
+								<th scope="col">선택</th>
+							</tr>
+							<!--//테이블 헤더의 끝 -->
+						</thead>
+						<tbody>
+							<!-- *product:[pcommonId, pcolorId, pstockId, quantity, brandName, productName, sizeCode, colorCode, 
 									img1, img2, img3, colorImg, price, stock] -->
-						<!-- *cart.xml.selectList()를 통해 가져옴-->
-						<c:forEach var="product" items="${cartItems}" varStatus="status">
-							<%-- 첫번째 행의 시작 --%>
-							<tr class="entryProductInfo">
-								<%-- 체크박스 --%>
-								<td class="frt">
-									<input type="checkbox" class="entryProductCheck" value="${status.count}" onclick="selectProductCount();selectProductPrice();" />
-								</td>
-								<%-- 상품정보 --%>
-								<td class="pt_list_wrap">
-									<div class="pt_list_all">
-										<!-- *컬러 아이디만으로 상위 카테고리 경로까지 설정해주는 컨트롤러로 url 매핑 -->
-										<a href="/product/set/${product.productColor.id}">
-											<img src="${product.productColor.img1}" style="image-rendering: -webkit-optimize-contrast;" alt="">
-										</a>
-										<div class="tlt_wrap">
-											<a href="/product/set/${product.productColor.id}" class="basket_tlt">
-												<span class="tlt">${product.brand.name}</span>
-												<span class="sb_tlt">${product.productCommon.name}</span>
+							<!-- *cart.xml.selectList()를 통해 가져옴-->
+							<th:block th:each="product, status : ${cartItems}">
+<!-- 							<c:forEach var="product" items="${cartItems}" varStatus="status"> -->
+								<!-- 첫번째 행의 시작 -->
+								<tr class="entryProductInfo">
+									<!-- 체크박스 -->
+									<td class="frt">
+										<input type="checkbox" class="entryProductCheck" th:value="${status.count}" onclick="selectProductCount();selectProductPrice();" />
+									</td>
+									<!-- 상품정보 -->
+									<td class="pt_list_wrap">
+										<div class="pt_list_all">
+											<!-- *컬러 아이디만으로 상위 카테고리 경로까지 설정해주는 컨트롤러로 url 매핑 -->
+											<a th:href="|/product/set/${product.productColor.id}|">
+												<img th:src="${product.productColor.img1}" style="image-rendering: -webkit-optimize-contrast;" alt="">
 											</a>
-											<p class="color_op">
-												color : ${product.productColor.colorCode}
-												<span>/</span>
-												size : ${product.productStock.sizeCode}
-											</p>
-											<!-- stock check -->
-											<!-- *3개부터 품절임박 표시 -->
-											<c:if test="${product.productStock.stock < 4 and product.productStock.stock > 0}">
-												<p class="stock_info">품절 임박 ! 현재 선택하신 상품의 재고가 ${product.productStock.stock}개 남았습니다.</p>
-											</c:if>
+											<div class="tlt_wrap">
+												<a th:href="|/product/set/${product.productColor.id}|" class="basket_tlt">
+													<span class="tlt" th:text="${product.brand.name}"></span>
+													<span class="sb_tlt" th:text="${product.productCommon.name}"></span>
+												</a>
+												<p class="color_op">
+													color : [[${product.productColor.colorCode}]]
+													<span>/</span>
+													size : [[${product.productStock.sizeCode}]]
+												</p>
+												<!-- stock check -->
+												<!-- *3개부터 품절임박 표시 -->
+<!-- 												<c:if test="${product.productStock.stock < 4 and product.productStock.stock > 0}"> -->
+												
+													<p class="stock_info" th:if="${product.productStock.stock lt 4 and product.productStock.stock gt 0}">품절 임박 ! 현재 선택하신 상품의 재고가 [[${product.productStock.stock}]]개 남았습니다.</p>
+<!-- 												</c:if> -->
 
-											<c:if test="${product.productStock.stock < 1}">
-												<p class="stock_info">품절</p>
-											</c:if>
-											<!-- *재고 정보 저장 -->
-											<input type="hidden" name="stock" value="${product.productStock.stock}" />
-											<!-- //stock check -->
-											<div class="option_wrap">
-												<input type="hidden" value="${product.productCommon.id}" />
-												<a href="javascript:void(0);" class="btn_option" onclick="display_opt(this, '${product.productColor.colorCode}', '${product.productStock.sizeCode}', '${product.productCommon.id}','${product.productColor.id}' , ${status.count})">옵션변경</a>
+<!-- 												<c:if test="${product.productStock.stock < 1}"> -->
+													<p class="stock_info" th:if="${product.productStock.stock lt 1}">품절</p>
+<!-- 												</c:if> -->
+												<!-- *재고 정보 저장 -->
+												<input type="hidden" name="stock" th:value="${product.productStock.stock}" />
+												<!-- //stock check -->
+												<div class="option_wrap">
+													<input type="hidden" th:value="${product.productCommon.id}" />
+													<a href="javascript:void(0)" class="btn_option" 
+													th:onclick="display_opt(this, [[${product.productColor.colorCode}]], [[${product.productStock.sizeCode}]], [[${product.productCommon.id}]],[[${product.productColor.id}]] , [[${status.count}]])">옵션변경</a>
+												</div>
 											</div>
 										</div>
-									</div>
-								</td>
-								<%-- 수량 --%>
-								<td class="al_middle">
-									<!-- Cart테이블의 수량 정보를 업데이트 하는 폼 시작 -->
-									<form action="/cart/update/quantity" method="post">
-										<input type="hidden" name="productStockId" value="${product.productStock.id}" />
-										<span class="qty_sel num">
-											<!-- 수량 제어 버튼 시작 -->
-											<a href="javascript:void(0)" class="left" onclick="quantity_control(this, 'minus');">이전 버튼</a>
-											<!-- css 적용하기 위해 number type이 아닌 text 타입을 사용함 -->
-											<input id="quantity${status.count}" name="quantity" type="text" class="mr0" value="${product.cart.quantity}" size="1" maxlength="3" min="1" onchange="quantity_check(this)" />
-											<a href="javascript:void(0)" class="right" onclick="quantity_control(this, 'plus');">다음 버튼</a>
-											<!--//수량 제어 버튼 끝 -->
-										</span>
-										<button id="QuantityProduct" class="btn wt_ss qty_w mr0">변경</button>
-									</form>
-									<!--//Cart테이블의 수량 정보를 업데이트 하는 폼 끝 -->
-								</td>
-								<%-- 가격 --%>
-								<td class="al_middle">
-									<div class="price_wrap">
-										<span>
-											₩
-											<fmt:formatNumber type="number" maxFractionDigits="3" value="${product.productColor.price * product.cart.quantity}" />
-										</span>
-										<input type="hidden" name="appliedPrice" value="${product.productColor.price * product.cart.quantity}">
-									</div>
-								</td>
-								<%-- 삭제 --%>
-								<td class="al_middle">
-									<!-- <div class="btn_wrap">
+									</td>
+									<!-- 수량 -->
+									<td class="al_middle">
+										<!-- Cart테이블의 수량 정보를 업데이트 하는 폼 시작 -->
+										<form action="/cart/update/quantity" method="post">
+											<input type="hidden" name="productStockId" th:value="${product.productStock.id}" />
+											<span class="qty_sel num">
+												<!-- 수량 제어 버튼 시작 -->
+												<a href="javascript:void(0)" class="left" onclick="quantity_control(this, 'minus');">이전 버튼</a>
+												<!-- css 적용하기 위해 number type이 아닌 text 타입을 사용함 -->
+												<input id="quantity${status.count}" name="quantity" type="text" class="mr0" th:value="${product.cart.quantity}" size="1" maxlength="3" min="1" onchange="quantity_check(this)" />
+												<a href="javascript:void(0)" class="right" onclick="quantity_control(this, 'plus');">다음 버튼</a>
+												<!--//수량 제어 버튼 끝 -->
+											</span>
+											<button id="QuantityProduct" class="btn wt_ss qty_w mr0">변경</button>
+										</form>
+										<!--//Cart테이블의 수량 정보를 업데이트 하는 폼 끝 -->
+									</td>
+									<!-- 가격 -->
+									<td class="al_middle">
+										<div class="price_wrap">
+											<span>₩[[${#numbers.formatInteger(product.productColor.price * product.cart.quantity, 3, 'COMMA')}]]</span>
+											<input type="hidden" name="appliedPrice" th:value="${product.productColor.price * product.cart.quantity}">
+										</div>
+									</td>
+									<!-- 삭제 -->
+									<td class="al_middle">
+										<!-- <div class="btn_wrap">
 										<button class="btn wt_ss">삭제</button>
 									</div> -->
-									<div class="btn_wrap">
-										<!-- Cart테이블의 데이터를 삭제하는 폼 시작 -->
-										<form class="cartItem" action="/cart/delete" method="post">
-											<input type="hidden" name="hidden_pcolorId" value="${product.productColor.id}" />
-											<input type="hidden" name="hidden_brand_name" value="${product.brand.name}" />
-											<input type="hidden" name="hidden_product_name" value="${product.productCommon.name}" />
-											<input type="hidden" name="hidden_color_code" value="${product.productColor.colorCode}" />
-											<input type="hidden" name="hidden_size_code" value="${product.productStock.sizeCode}" />
-											<input type="hidden" name="hidden_img1" value="${product.productColor.img1}" />
-											<input type="hidden" name="hidden_quantity" value="${product.cart.quantity}" />
-											<input type="hidden" name="hidden_applied_price" class="hidden_applied_price" value="${product.cart.quantity * product.productColor.price}" />
-											<button class="btn wt_ss">삭제</button>
-										</form>
-										<!--//Cart테이블의 데이터를 삭제하는 폼 끝 -->
-									</div>
-								</td>
-							</tr>
-							<%--// 첫번째 행의 끝 --%>
+										<div class="btn_wrap">
+											<!-- Cart테이블의 데이터를 삭제하는 폼 시작 -->
+											<form class="cartItem" action="/cart/delete" method="post">
+												<input type="hidden" name="hidden_pcolorId" th:value="${product.productColor.id}" />
+												<input type="hidden" name="hidden_brand_name" th:value="${product.brand.name}" />
+												<input type="hidden" name="hidden_product_name" th:value="${product.productCommon.name}" />
+												<input type="hidden" name="hidden_color_code" th:value="${product.productColor.colorCode}" />
+												<input type="hidden" name="hidden_size_code" th:value="${product.productStock.sizeCode}" />
+												<input type="hidden" name="hidden_img1" th:value="${product.productColor.img1}" />
+												<input type="hidden" name="hidden_quantity" th:value="${product.cart.quantity}" />
+												<input type="hidden" name="hidden_applied_price" class="hidden_applied_price" th:value="${product.cart.quantity * product.productColor.price}" />
+												<button class="btn wt_ss">삭제</button>
+											</form>
+											<!--//Cart테이블의 데이터를 삭제하는 폼 끝 -->
+										</div>
+									</td>
+								</tr>
+								<!--// 첫번째 행의 끝 -->
 
-							<%-- 두번째 행의 시작 (default로 hidden) --%>
-							<%-- 옵션변경 클릭 시 보여지는 상품 정보--%>
-							<tr>
-								<td colspan="6" class="basket_wrap">
-									<div class="basket_info" style="display: hidden;">
-										<input type="hidden" name="statusCount" value="${status.count}" />
-										<span class="btn_arr">위치아이콘</span>
-										<%-- 옵션 변경 폼 시작 --%>
-										<form action="/cart/update/options" method="post">
-											<div class="info">
-												<div class="pt_list" id="pt_list_4">
-													<!-- 클릭 시 상품 상세 화면으로 -->
-													<!-- *컬러 아이디만으로 상위 카테고리 경로까지 설정해주는 컨트롤러로 url 매핑 -->
-													<a href="/product/set/${product.productColor.id}">
-														<!-- 상품 사진 -->
-														<img src="${product.productColor.img3}" style="image-rendering: -webkit-optimize-contrast;" alt="">
-													</a>
-													<div class="tlt_wrap">
+								<!-- 두번째 행의 시작 (default로 hidden) -->
+								<!-- 옵션변경 클릭 시 보여지는 상품 정보-->
+								<tr>
+									<td colspan="6" class="basket_wrap">
+										<div class="basket_info" style="display: hidden;">
+											<input type="hidden" name="statusCount" th:value="${status.count}" />
+											<span class="btn_arr">위치아이콘</span>
+											<!-- 옵션 변경 폼 시작 -->
+											<form action="/cart/update/options" method="post">
+												<div class="info">
+													<div class="pt_list" id="pt_list_4">
 														<!-- 클릭 시 상품 상세 화면으로 -->
-														<a href="/product/set/${product.productColor.id}">
-															<div class="tlt" style="text-align: left;">${product.brand.name}</div>
-															<div class="sb_tlt" style="text-align: left;">${product.productCommon.name}</div>
+														<!-- *컬러 아이디만으로 상위 카테고리 경로까지 설정해주는 컨트롤러로 url 매핑 -->
+														<a th:href="|/product/set/${product.productColor.id}|">
+															<!-- 상품 사진 -->
+															<img th:src="${product.productColor.img3}" style="image-rendering: -webkit-optimize-contrast;" alt="">
 														</a>
+														<div class="tlt_wrap">
+															<!-- 클릭 시 상품 상세 화면으로 -->
+															<a th:href="|/product/set/${product.productColor.id}|">
+<!-- 																<div class="tlt" style="text-align: left;">[[${product.brand.name}]]</div> -->
+																<div class="sb_tlt" style="text-align: left;">[[${product.productCommon.name}]]</div>
+															</a>
 
-														<%-- 변경 버튼 클릭 시 디비에 업데이트 되는 상품 정보 시작 --%>
-														<input type="hidden" name="productStockId" value="${product.productStock.id}" />
-														<input type="hidden" name="productCommonId" value="${product.productCommon.id}" />
-														<input type="hidden" name="colorCode" class="color_option" value="${product.productColor.colorCode}" />
-														<input type="hidden" name="sizeCode" class="size_option" value="${product.productStock.sizeCode}" />
-														<input type="hidden" name="quantity" value="${product.cart.quantity}" />
-														<%--// 변경 버튼 클릭 시 디비에 업데이트 되는 상품 정보 끝 --%>
+															<!-- 변경 버튼 클릭 시 디비에 업데이트 되는 상품 정보 시작 -->
+															<input type="hidden" name="productStockId" th:value="${product.productStock.id}" />
+															<input type="hidden" name="productCommonId" th:value="${product.productCommon.id}" />
+															<input type="hidden" name="colorCode" class="color_option" th:value="${product.productColor.colorCode}" />
+															<input type="hidden" name="sizeCode" class="size_option" th:value="${product.productStock.sizeCode}" />
+															<input type="hidden" name="quantity" th:value="${product.cart.quantity}" />
+															<!--// 변경 버튼 클릭 시 디비에 업데이트 되는 상품 정보 끝 -->
 
-														<dl class="cs_wrap">
-															<dt style="font-size: 18px;">COLOR</dt>
-															<dd class="color_wrap">
-																<div id="select_color${status.count}" class="cl_select">
-																	<%-- color.jsp fragment가 들어가는 부분 시작--%>
-																	<!-- <div class="opt_color_wrap">
+															<dl class="cs_wrap">
+																<dt style="font-size: 18px;">COLOR</dt>
+																<dd class="color_wrap">
+																	<div th:id="|select_color${status.count}|" class="cl_select">
+																		<!-- color.jsp fragment가 들어가는 부분 시작-->
+																		<!-- <div class="opt_color_wrap">
 																			<c:forEach var="color" items="${colors}">
 																				<div class="opt_color${color.colorCode}">
 																					<a href="javascript:void(0);" onclick="set_color(this);" style="background: #362626 url('${color.colorImg}')">${color.colorCode}</a>
 																				</div>
 																			</c:forEach>
 																		</div> -->
-																	<%--//color.jsp fragment가 들어가는 부분 끝--%>
-																</div>
-															</dd>
-															<dt style="font-size: 18px;">SIZE</dt>
-															<dd style="width: 90%; height: 100%;">
-																<div id="select_size${status.count}" class="sz_select">
-																	<%-- size.jsp fragment가 들어가는 부분 시작 --%>
-																	<!--<c:forEach var="size" items="${sizes}">
+																		<!--//color.jsp fragment가 들어가는 부분 끝-->
+																	</div>
+																</dd>
+																<dt style="font-size: 18px;">SIZE</dt>
+																<dd style="width: 90%; height: 100%;">
+																	<div th:id="|select_size${status.count}|" class="sz_select">
+																		<!-- size.jsp fragment가 들어가는 부분 시작 -->
+																		<!--<c:forEach var="size" items="${sizes}">
 																			<a href="javascript:void(0);" onclick="set_size(this);" class="on ${size.sizeCode}" style="line-height: 15px;">${size.sizeCode}</a>
 																		</c:forEach> -->
-																	<%--//size.jsp fragment가 들어가는 부분 끝--%>
-																</div>
-															</dd>
-														</dl>
+																		<!--//size.jsp fragment가 들어가는 부분 끝-->
+																	</div>
+																</dd>
+															</dl>
+														</div>
+													</div>
+													<div class="btns">
+														<button class="btn wt_ss mr0" id="UpdateCart_4">변경</button>
+														<!-- *옵션 변경 row를 숨기는 버튼 -->
+														<a href="javascript:void(0)" class="btn wt_ss mt10 mr0" id="optCancelLayer_4" onclick="hidden_opt(this)">취소</a>
+														<a href="javascript:void(0)" class="btn_close" id="optCloseLayer_0" onclick="hidden_opt(this)">닫기</a>
 													</div>
 												</div>
-												<div class="btns">
-													<button class="btn wt_ss mr0" id="UpdateCart_4">변경</button>
-													<!-- *옵션 변경 row를 숨기는 버튼 -->
-													<a href="javascript:void(0)" class="btn wt_ss mt10 mr0" id="optCancelLayer_4" onclick="hidden_opt(this)">취소</a>
-													<a href="javascript:void(0)" class="btn_close" id="optCloseLayer_0" onclick="hidden_opt(this)">닫기</a>
-												</div>
-											</div>
-										</form>
-										<%--// 옵션 변경 폼 끝 --%>
-									</div>
-								</td>
-							</tr>
-							<%-- //옵션변경 클릭 시 보여지는 상품 정보--%>
-							<%-- // 두번째 행의 끝 --%>
-						</c:forEach>
+											</form>
+											<!--// 옵션 변경 폼 끝 -->
+										</div>
+									</td>
+								</tr>
+								<!-- //옵션변경 클릭 시 보여지는 상품 정보-->
+								<!-- // 두번째 행의 끝 -->
+<!-- 							</c:forEach> -->
+							</th:block>
 
-					</tbody>
-				</table>
-			</div>
-			<!-- 선택된 상품의 합계 금액, 개수를 보여주는 곳 시작 -->
-			<!-- *체크박스가 change될때마다 합계와 개수는 바뀐다 -->
-			<!-- *selectProductCount(), selectProductPrice() 함수가 실행됨 -->
-			<div class="total_wrap">
-				<!-- total -->
-				<div class="total_price_wrap">
-					<dl>
-						<dt>상품 합계</dt>
-						<dd>
-							<span id="cartDataSubtotal">₩0</span>
-						</dd>
-						<dt class="delch_wrap">배송비</dt>
-						<dd>
-							<span id="cartDataDeliveryCost">₩0</span>
-						</dd>
-					</dl>
-					<dl class="total">
-						<dt style="display: inline;">합계</dt>
-						<dd>
-							<span id="cartDataTotalPrice">₩0</span>
-						</dd>
-					</dl>
+						</tbody>
+					</table>
 				</div>
-				<div class="total_count_cart">
-					<p>
-						총
-						<span id="selectProductCount">0</span>
-						개 상품
-					</p>
+				<!-- 선택된 상품의 합계 금액, 개수를 보여주는 곳 시작 -->
+				<!-- *체크박스가 change될때마다 합계와 개수는 바뀐다 -->
+				<!-- *selectProductCount(), selectProductPrice() 함수가 실행됨 -->
+				<div class="total_wrap">
+					<!-- total -->
+					<div class="total_price_wrap">
+						<dl>
+							<dt>상품 합계</dt>
+							<dd>
+								<span id="cartDataSubtotal">₩0</span>
+							</dd>
+							<dt class="delch_wrap">배송비</dt>
+							<dd>
+								<span id="cartDataDeliveryCost">₩0</span>
+							</dd>
+						</dl>
+						<dl class="total">
+							<dt style="display: inline;">합계</dt>
+							<dd>
+								<span id="cartDataTotalPrice">₩0</span>
+							</dd>
+						</dl>
+					</div>
+					<div class="total_count_cart">
+						<p>
+							총
+							<span id="selectProductCount">0</span>
+							개 상품
+						</p>
+					</div>
+					<!-- //total -->
 				</div>
-				<!-- //total -->
+				<!--//Total wrap-->
 			</div>
-			<!--//Total wrap-->
-		</div>
-		<!--// 선택된 상품의 합계를 보여주는 곳 끝 -->
-		<!-- 선택된 상품리스트(1개 이상)를 장바구니에서 삭제하는 버튼 시작 -->
-		<div class="btnwrap order" id="checkout_btn_wrap">
+			<!--// 선택된 상품의 합계를 보여주는 곳 끝 -->
+			<!-- 선택된 상품리스트(1개 이상)를 장바구니에서 삭제하는 버튼 시작 -->
+			<div class="btnwrap order" id="checkout_btn_wrap">
 
-			<input id="" onclick="selDel(this)" value="선택상품삭제" class="btn wt delBtn" type="button" />
-			<!-- *삭제할 상품의 StockId를 JSON -> String으로 저장할 input 박스와 데이터를 전달할 경로를 설정한 폼-->
-			<form id="delForm" action="/cart/deleteSelected" method="post">
-				<input type="hidden" id="selDel" name="productStockIds"/>
-			</form>
-			<!-- *최종 합계 가격이 들어가는 input box이며, 해당 데이터는 주문서 폼에 넘어간다 -->
-			<input type="hidden" id="finalPrice" name="data" />
+				<input id="" onclick="selDel(this)" value="선택상품삭제" class="btn wt delBtn" type="button" />
+				<!-- *삭제할 상품의 StockId를 JSON -> String으로 저장할 input 박스와 데이터를 전달할 경로를 설정한 폼-->
+				<form id="delForm" action="/cart/deleteSelected" method="post">
+					<input type="hidden" id="selDel" name="productStockIds" />
+				</form>
+				<!-- *최종 합계 가격이 들어가는 input box이며, 해당 데이터는 주문서 폼에 넘어간다 -->
+				<input type="hidden" id="finalPrice" name="data" />
 
-			<!-- *orderContent input박스의 내용을 주문서 폼으로 전달할 폼 -->
-			<form id="orderForm" method="post" action="/order/orderform">
-				<!-- *선택한 상품을 JSON -> String으로 저장할 input박스 -->
-				<input type="hidden" id="orderContent" name="orderContent" />
-				<!-- *주문하기 버튼을 누르면 makeOrder()함수가 실행되고 함수의 결과로 채워진 input 박스의 값이 주문서 폼으로 전달된다 -->
-				<input type="button" onclick="makeOrder()" value="선택상품 주문하기" class="btn gray mr0 orderBtn">
-			</form>
-		</div>
-		<!--// 선택 상품을 삭제하는 버튼 끝 -->
-		<script>
+				<!-- *orderContent input박스의 내용을 주문서 폼으로 전달할 폼 -->
+				<form id="orderForm" method="post" action="/order/orderform">
+					<!-- *선택한 상품을 JSON -> String으로 저장할 input박스 -->
+					<input type="hidden" id="orderContent" name="orderContent" />
+					<!-- *주문하기 버튼을 누르면 makeOrder()함수가 실행되고 함수의 결과로 채워진 input 박스의 값이 주문서 폼으로 전달된다 -->
+					<input type="button" onclick="makeOrder()" value="선택상품 주문하기" class="btn gray mr0 orderBtn">
+				</form>
+			</div>
+			<!--// 선택 상품을 삭제하는 버튼 끝 -->
+			<script>
 
 		</script>
+		</div>
 	</div>
-</div>
 
-<script>
+	<script>
 /*
  * author: 현지
  * 뒤로가기 버튼 등 장바구니 페이지 새롭게 진입 시 모든 체크박스를 해제
@@ -645,4 +649,6 @@ function makeOrder() {
 }
 </script>
 
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+</th:block>
+</th:block>
+</html>

@@ -1,0 +1,8 @@
+<div class="opt_color_wrap">
+	<th:block th:each="color : ${colors}">
+		<div th:class="|opt_color${color.colorCode}|">
+			<a href="javascript:void(0);" onclick="set_color(this);"
+			th:style="'background: #362626 url('+${color.colorImg}+');'">[[${color.colorCode}]]</a>
+		</div>
+	</th:block>
+</div>
