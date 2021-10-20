@@ -726,7 +726,7 @@
 					}
 					$("input[name=beforeDcPrice]").val([[${totalPrice}]]);
 					$("input[name=afterDcPrice]").val([[${totalPrice}]]-$("#pointpay").val());
-					$("input[name='orderContent']").val(JSON.stringify([[${orderContent}]]));
+					$("input[name='orderContent']").val([[${orderContent}]]);
 					/* (결제수단)이 선택되지 않았다면 , CheckResult false로 변환 */
 					/* 결제수단을 선택하라는 에러표시 */
 					if($("input[name='mode']:checked").val() == 0 || $("input[name='mode']:checked").val() == 1){
