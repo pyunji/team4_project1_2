@@ -47,12 +47,12 @@
 						</div>
 						<div class="util_menu" style="display: block;">
 							<ul class="clearfix">
-								<sec:authorize access="isAnonymous()">
+								<th:block sec:authorize="!isAuthenticated()">
 									<li>
 										<a th:href="@{/member/loginform}">로그인</a>
 									</li>
-								</sec:authorize>
-								<sec:authorize access="isAuthenticated()">
+								</th:block>
+								<th:block sec:authorize="isAuthenticated()">
 									<li>
 										<a th:href="@{/logout}">로그아웃</a>
 									</li>
@@ -60,7 +60,7 @@
 									<li class="mr-2">
 										<a th:href="@{/member/orderlist}">마이페이지</a>
 									</li>
-								</sec:authorize>
+								</th:block>
 							</ul>
 						</div>
 					</div>
@@ -94,11 +94,11 @@
 						<!--/* 카테고리1 끝 */-->
 	
 						<ul class="cate_m cate_banner gnbul2" id="cate_m_main">
-							<sec:authorize access="isAuthenticated()">
+							<th:block sec:authorize="isAuthenticated()">
 								<li>
 									<a th:href="@{/cart}">장바구니</a>
 								</li>
-							</sec:authorize>
+							</th:block>
 				</div>
 	
 				<!--/* 카테고리2,3 시작 */-->
