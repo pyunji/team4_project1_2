@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		log.info("configure(HttpSecurity http) 실행");
 		// 로그인 방식 설정
 		http.formLogin()
-		.loginPage("/security/loginForm")	// default: /login(GET)
+		.loginPage("/member/loginform")	// default: /login(GET)
 		.usernameParameter("id")	// default: username
 		.passwordParameter("password") // default: password
 		.loginProcessingUrl("/login") // default: /login(POST) .디폴트 로그인 요청 경로. 요청 매핑 메서드 만들 필요 없음. 시큐리티가 정해놓은 경로. POST 방식으로 login 경로를 요청해야한다
