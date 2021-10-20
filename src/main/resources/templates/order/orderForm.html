@@ -63,7 +63,7 @@
 												<td>
 													<!-- price_wrap -->
 													<div class="price_wrap ">
-														<span> ₩ [[${product.appliedPrice}]]</span>
+														<span> ₩ [[${#numbers.formatInteger(product.appliedPrice,3,'COMMA')}]]</span>
 													</div>
 												</td>
 											</tr>
@@ -93,7 +93,7 @@
 										</tr>
 										<tr>
 									<th scope="row" class="th_space">휴대폰</th>
-									<td>[[${member.phone}]]</td>
+									<td>[[${#strings.substring(member.phone,0,3)}]] - [[${#strings.substring(member.phone,3,7)}]] - [[${#strings.substring(member.phone,7,11)}]]</td>
 										</tr>
 										<tr>
 											<th scope="row" class="th_space">E-mail</th>
@@ -184,12 +184,12 @@
 												<!-- hp --> 
 												<!--/* <c:set var="hpnum1" value="${fn:substring(member.phone,0,3)}" />  */-->
 												<select th:with="hpnum1=${#strings.substring(member.phone,0,3)}" id="hp" name="hp_num1" title="휴대폰 번호 앞자리" class="hp_num1">
-													<option value="010">010</option>
-													<option value="011">011</option>
-													<option value="016">016</option>
-													<option value="017">017</option>
-													<option value="018">018</option>
-													<option value="019">019</option>
+													<option value="010" th:selected="${hpnum1}=='010'">010</option>
+													<option value="011" th:selected="${hpnum1}=='011'">011</option>
+													<option value="016" th:selected="${hpnum1}=='016'">016</option>
+													<option value="017" th:selected="${hpnum1}=='017'">017</option>
+													<option value="018" th:selected="${hpnum1}=='018'">018</option>
+													<option value="019" th:selected="${hpnum1}=='019'">019</option>
 												</select>
 												<div class="form_hyphen">-</div> 
 												<input title="휴대폰 번호 가운데자리"
