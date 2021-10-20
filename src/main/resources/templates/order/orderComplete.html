@@ -84,8 +84,8 @@
 						<td>
 			<!-- 선택한 상품의 판매가  -->
 							<div class="price_wrap">
-								<span> ₩ <th:block>[[${#numbers.formatInteger(ordercomplete.orderItem.totalPrice, 3, 'COMMA')}]]</th:block>
-								</span>
+								<span th:if="${ordercomplete.orderItem.totalPrice} !=0 "> ₩ [[${#numbers.formatInteger(ordercomplete.orderItem.totalPrice, 3, 'COMMA')}]] </span>
+								<span th:if="${ordercomplete.orderItem.totalPrice} ==0 "> ₩ 0</span>
 							</div> 
 						</td>
 					</tr>
