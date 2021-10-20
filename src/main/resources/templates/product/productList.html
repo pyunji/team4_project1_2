@@ -23,7 +23,7 @@
 								<!--/*<c:set var="mycount" value="${status.count}" /> 칼라칩을 위해 사용했다. 꼭 사용할 필요 없다.*/-->
 								<th:block th:if="${check} != ${product.productColor.id}">
 								<!-- 클릭시 이동할 url 넣는부분-->
-								<div class="col mb-5" style="cursor: pointer;" th:onclick="@{/product/[[${product.category.depth1Name}]]/[[${product.category.depth2Name}]]/$[[{product.category.depth3Name}]]/$[[{product.productColor.id}]]}">
+								<div class="col mb-5" style="cursor: pointer;" th:onclick="'location.href=\'' + @{|/product/${product.category.depth1Name}/${product.category.depth2Name}/${product.category.depth3Name}/${product.productColor.id}|}+ '\''">
 									<input type="hidden" name="depth1Value" th:value="${product.category.depth1Name}"></input>
 									<input type="hidden" name="depth2Value" th:value="${product.category.depth2Name}"></input>
 									<input type="hidden" name="depth3Value" th:value="${product.category.depth3Name}"></input>
