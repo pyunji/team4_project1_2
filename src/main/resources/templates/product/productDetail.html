@@ -222,7 +222,6 @@
 															<th:block th:if="${stock.stock le 0}">
 																<label style="background-color: #dddddd;" class="btn btn-outline-secondary btn-lg">
 																	<input type="radio" style="display: none;" name="size" th:value="${stock.sizeCode}" disabled="disabled"/>[[${stock.sizeCode}]]
-																	<!-- 작은따옴표 안붙여주면 에러남 -->
 																</label>
 																<!-- stock의 재고가 0개 이하인 경우 hidden 값으로 체크한다. -->
 																<input type="hidden" id="emptyStock" value="emptyStock">
@@ -230,7 +229,6 @@
 															<th:block th:if="${stock.stock gt 0}">
 																<label class="btn btn-outline-secondary btn-lg">
 																	<input type="radio" style="display: none;" name="size" th:value="${stock.sizeCode}" th:onclick="changePstockId([[${product.productColor.id}]], [[${stock.sizeCode}]])" />[[${stock.sizeCode}]]
-																	<!-- 작은따옴표 안붙여주면 에러남 -->
 																</label>
 																<input type="hidden" id="emptyStock" value="">
 															</th:block>
