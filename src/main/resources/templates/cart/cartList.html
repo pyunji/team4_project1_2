@@ -53,11 +53,11 @@
 									<td class="pt_list_wrap">
 										<div class="pt_list_all">
 											<!-- *컬러 아이디만으로 상위 카테고리 경로까지 설정해주는 컨트롤러로 url 매핑 -->
-											<a th:href="|/product/set/${product.productColor.id}|">
+											<a th:href="@{|/product/set/${product.productColor.id}|}">
 												<img th:src="${product.productColor.img1}" style="image-rendering: -webkit-optimize-contrast;" alt="">
 											</a>
 											<div class="tlt_wrap">
-												<a th:href="|/product/set/${product.productColor.id}|" class="basket_tlt">
+												<a th:href="@{|/product/set/${product.productColor.id}|}" class="basket_tlt">
 													<span class="tlt" th:text="${product.brand.name}"></span>
 													<span class="sb_tlt" th:text="${product.productCommon.name}"></span>
 												</a>
@@ -90,7 +90,7 @@
 									<!-- 수량 -->
 									<td class="al_middle">
 										<!-- Cart테이블의 수량 정보를 업데이트 하는 폼 시작 -->
-										<form action="/cart/update/quantity" method="post">
+										<form th:action="@{/cart/update/quantity}" method="post">
 											<input type="hidden" name="productStockId" th:value="${product.productStock.id}" />
 											<span class="qty_sel num">
 												<!-- 수량 제어 버튼 시작 -->
@@ -118,7 +118,7 @@
 									</div> -->
 										<div class="btn_wrap">
 											<!-- Cart테이블의 데이터를 삭제하는 폼 시작 -->
-											<form class="cartItem" action="/cart/delete" method="post">
+											<form class="cartItem" th:action="@{/cart/delete}" method="post">
 												<input type="hidden" name="hidden_pcolorId" th:value="${product.productColor.id}" />
 												<input type="hidden" name="hidden_brand_name" th:value="${product.brand.name}" />
 												<input type="hidden" name="hidden_product_name" th:value="${product.productCommon.name}" />
@@ -143,18 +143,18 @@
 											<input type="hidden" name="statusCount" th:value="${status.count}" />
 											<span class="btn_arr">위치아이콘</span>
 											<!-- 옵션 변경 폼 시작 -->
-											<form action="/cart/update/options" method="post">
+											<form th:action="@{/cart/update/options}" method="post">
 												<div class="info">
 													<div class="pt_list" id="pt_list_4">
 														<!-- 클릭 시 상품 상세 화면으로 -->
 														<!-- *컬러 아이디만으로 상위 카테고리 경로까지 설정해주는 컨트롤러로 url 매핑 -->
-														<a th:href="|/product/set/${product.productColor.id}|">
+														<a th:href="@{|/product/set/${product.productColor.id}|}">
 															<!-- 상품 사진 -->
 															<img th:src="${product.productColor.img3}" style="image-rendering: -webkit-optimize-contrast;" alt="">
 														</a>
 														<div class="tlt_wrap">
 															<!-- 클릭 시 상품 상세 화면으로 -->
-															<a th:href="|/product/set/${product.productColor.id}|">
+															<a th:href="@{|/product/set/${product.productColor.id}|}">
 <!-- 																<div class="tlt" style="text-align: left;">[[${product.brand.name}]]</div> -->
 																<div class="sb_tlt" style="text-align: left;">[[${product.productCommon.name}]]</div>
 															</a>
@@ -255,14 +255,14 @@
 
 				<input id="" onclick="selDel(this)" value="선택상품삭제" class="btn wt delBtn" type="button" />
 				<!-- *삭제할 상품의 StockId를 JSON -> String으로 저장할 input 박스와 데이터를 전달할 경로를 설정한 폼-->
-				<form id="delForm" action="/cart/deleteSelected" method="post">
+				<form id="delForm" th:action="@{/cart/deleteSelected}" method="post">
 					<input type="hidden" id="selDel" name="productStockIds" />
 				</form>
 				<!-- *최종 합계 가격이 들어가는 input box이며, 해당 데이터는 주문서 폼에 넘어간다 -->
 				<input type="hidden" id="finalPrice" name="data" />
 
 				<!-- *orderContent input박스의 내용을 주문서 폼으로 전달할 폼 -->
-				<form id="orderForm" method="post" action="/order/orderform">
+				<form id="orderForm" method="post" th:action="@{/order/orderform}">
 					<!-- *선택한 상품을 JSON -> String으로 저장할 input박스 -->
 					<input type="hidden" id="orderContent" name="orderContent" />
 					<!-- *주문하기 버튼을 누르면 makeOrder()함수가 실행되고 함수의 결과로 채워진 input 박스의 값이 주문서 폼으로 전달된다 -->
