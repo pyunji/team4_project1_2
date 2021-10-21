@@ -47,7 +47,7 @@
 								<tr class="entryProductInfo">
 									<!-- 체크박스 -->
 									<td class="frt">
-										<input type="checkbox" class="entryProductCheck" th:value="${status.count}" onclick="selectProductCount();selectProductPrice();" />
+										<input type="checkbox" class="entryProductCheck" onclick="selectProductCount();selectProductPrice();" />
 									</td>
 									<!-- 상품정보 -->
 									<td class="pt_list_wrap">
@@ -96,7 +96,7 @@
 												<!-- 수량 제어 버튼 시작 -->
 												<a href="javascript:void(0)" class="left" onclick="quantity_control(this, 'minus');">이전 버튼</a>
 												<!-- css 적용하기 위해 number type이 아닌 text 타입을 사용함 -->
-												<input id="quantity${status.count}" name="quantity" type="text" class="mr0" th:value="${product.cart.quantity}" size="1" maxlength="3" min="1" onchange="quantity_check(this)" />
+												<input th:id="|quantity${status.count}|" name="quantity" type="text" class="mr0" th:value="${product.cart.quantity}" size="1" maxlength="3" min="1" onchange="quantity_check(this)" />
 												<a href="javascript:void(0)" class="right" onclick="quantity_control(this, 'plus');">다음 버튼</a>
 												<!--//수량 제어 버튼 끝 -->
 											</span>
