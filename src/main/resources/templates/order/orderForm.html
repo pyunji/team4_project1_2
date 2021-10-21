@@ -9,7 +9,7 @@
 		</th:block>
 
 		<th:block th:fragment="content">
-
+			<form id="orderform" method="post" th:action="@{/order/ordercomplete}" th:object="${orders}">
 			<!--/* bodyWrap 시작 */-->
 			<div id="bodyWrap">
 				<h3 class="cnts_title">
@@ -141,9 +141,9 @@
 											<td>
 												<!-- 주소지 입력 --> 
 												<input onclick="goPopup()"
-														th:value="${member.zipcode}" title="우편번호" id="adress"
-														name="postcode" class="post inputclear" type="text" readonly="">
-											
+														 title="우편번호" 
+														class="post inputclear" type="text" id="zipcode" name="zipcode" th:value="${member.zipcode}" readonly="">
+												<span style="color:red;" id="zip_error"></span>
 			<!--/* 서버 유효성 검사 부분 수정 필요*/-->
 												<!--/* <form:errors cssClass="text-danger" path="orderForm.zipcode"/> */-->
 			
@@ -156,7 +156,7 @@
 													<input onclick="goPopup()" th:value="${member.address2}"
 														title="주소2" name="line2" id="line2"
 														class="post_wall inputclear" type="text" maxlength="110">
-			
+												<input type="hidden" th:field="*{address}"></input>
 			<!--/* 서버 유효성 검사 부분 수정 필요*/-->
 												<!--/* <form:errors cssClass="text-danger" path="orderForm.address" style="display:block;"/> */-->
 											</td>
@@ -168,9 +168,9 @@
 											</th>
 											<td>
 												<input th:value="${member.name}" title="수령인"
-													id="rcpt_name" name="lastName" class="inputclear"
-													maxlength="13" type="text" style="width: 118px;">
-			<!--/* 서버 유효성 검사 부분 수정 필요*/-->
+													class="inputclear"
+													maxlength="13" type="text" style="width: 118px;" id="receiver" name="receiver">
+			<!--/* 서버 유효성 검사 부분 수정 필요*/--><span style="color:red;" id="receiver_error"></span>
 												<!--/* <form:errors cssClass="text-danger" path="orderForm.receiver"/> */-->
 											</td>
 										</tr>
@@ -203,6 +203,7 @@
 													type="text" maxlength="4" numberonly="true"
 													th:value="${#strings.substring(member.phone,7,11)}"> <!-- //hp -->
 												<span style="color:red;" id="hp_num_error"></span>
+												<input type="hidden" th:field="*{phone}"></input>
 												<div>
 			<!--/* 서버 유효성 검사 부분 수정 필요*/-->
 													
@@ -247,6 +248,7 @@
 													name="ph_num3" id="ph_num3" class="hp_num2 inputclear"
 													type="text" maxlength="4" numberonly="true">
 												<span style="color:red;" id="ph_num_error"></span>
+												<input type="hidden" th:field="*{tel}"></input>
 											</td>
 										</tr>
 										
@@ -259,9 +261,9 @@
 												<div class="input_sumtxt">
 													<div class="input_sumtxt_box">
 														<!-- input -->
-														<input class="inputclear" id="orderr"
-															name="deliveryRequestContents" type="text" value=""
-															title="배송요청사항" maxlength="20">
+														<input class="inputclear" 
+															 type="text" value=""
+															title="배송요청사항" maxlength="20" th:field="*{memo}">
 													</div>
 												</div>
 											</td>
@@ -289,6 +291,7 @@
 													<option value="dreamwiz.com">dreamwiz.com</option>
 												</select>
 												<span style="color:red;" id="email_error"></span>
+												<input type="hidden" th:field="*{email}"></input>
 												<form:errors cssClass="text-danger" path="orderForm.email"/>
 											</td>
 										</tr>
@@ -324,7 +327,7 @@
 													<!-- 한섬마일리지 결제 입력 -->
 													<div class="point_wrap">
 														<input onkeyup="inputMileage();" title="한섬마일리지 결제"
-															class="inpput" type="text" id="pointpay" name="usePoint"
+															class="inpput" type="text" th:field="*{usedMileage}"
 															numberonly="true" value="0">
 														<p class="p_txt">
 															M 사용 (잔액 : <span>[[${mileageSum}]]</span> M)
@@ -342,7 +345,7 @@
 															<input id="btnCancelUsePoint" class="btn dis_s min_auto"
 																value="적용취소" type="button" onclick="cancelUsePoint(this);">
 														</div>
-			
+														
 														<p class="txt_guide">* 1마일리지 = 1원</p>
 													</div>
 												</td>
@@ -426,29 +429,30 @@
 								<a href="javascript:void(0)" style="background-color:#f5f5f5; color:silver" class="btn gray">결제하기</a>
 							</span>
 							<div>
-								<form id="orderform" method="post" th:action="@{/order/ordercomplete}">
-									<input type="hidden" name="zipcode" value=""></input>
+								<!-- <form id="orderform" method="post" th:action="@{/order/ordercomplete}"> -->
+									<!-- <input type="hidden" name="zipcode" value=""></input>
 									<input type="hidden" name="address" value=""></input>
 									<input type="hidden" name="receiver" value=""></input>
 									<input type="hidden" name="phone" value=""></input>
 									<input type="hidden" name="tel" value=""></input>
 									<input type="hidden" name="memo" value=""></input>
 									<input type="hidden" name="email" value=""></input>
-									<input type="hidden" name="usedMileage" value=""></input>
-									<input type="hidden" name="beforeDcPrice" value=""></input>
-									<input type="hidden" name="afterDcPrice" value=""></input>
-									<input type="hidden" name="paymentInfo" value="1101-3211-3332-5321"></input>
-									<input type="hidden" name="status" value="주문완료"></input>
-									<input type="hidden" name="deliveryStatus" value="준비중"></input>
-									<input type="hidden" name="memberId" th:value="${member.id}"></input>
-									<input type="hidden" name="paymentMethodCode" value=""></input>
-									<input type="hidden" name="orderContent" value=""></input>
-								</form>
+									<input type="hidden" th:field="usedMileage" value=""></input>-->
+									<input type="hidden" th:field="*{beforeDcPrice}"></input>
+									<input type="hidden" th:field="*{afterDcPrice}"></input>
+									<input type="hidden" id="paymentInfo" name="paymentInfo" th:value="1101-3211-3332-5321"></input>
+									<input type="hidden" id="status" name="status" th:value="주문완료"></input>
+									<input type="hidden" id="deliveryStatus" name="deliveryStatus" th:value="준비중"></input>
+									<input type="hidden" id="memberId" name="memberId" th:value="${member.id}"></input>
+									<input type="hidden" th:field="*{paymentMethodCode}"></input>
+									<input type="hidden" name="orderContent"></input>
+								<!-- </form> -->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			</form>
 			<!--/* bodyWrap 끝 */-->
 			
 			<script th:inline="javascript">
@@ -615,8 +619,8 @@
 				
 				/* 주문고객과 동일 버튼 클릭시, 고객 default 정보 */
 				function customerAddress(){
-					$("#rcpt_name").val([[${member.name}]]);
-					$("#adress").val([[${member.zipcode}]]);
+					$("#receiver").val([[${member.name}]]);
+					$("#address").val([[${member.zipcode}]]);
 					$("#line1").val([[${member.address1}]]);
 					$("#line2").val([[${member.address2}]]);
 					$("#hp_num2").val([[${#strings.substring(member.phone,3,7)}]]);
@@ -667,10 +671,23 @@
 					var checkResult = true;
 					
 					/* hidden Form에 value값 넣기위함. */
-					$("input[name=zipcode]").val($("#adress").val());
+					//$("input[name=zipcode]").val($("#adress").val());
 					$("input[name=address]").val($("#line1").val()+' '+$("#line2").val());
-					$("input[name=receiver]").val($("#rcpt_name").val());
-					$("input[name=memo]").val($("#orderr").val());
+					//$("input[name=receiver]").val($("#rcpt_name").val());
+					//$("input[name=memo]").val($("#orderr").val());
+					
+					/*zipcode 유효성 검사*/
+					let zip = $("#zipcode").val();
+					if(zip === ""){
+						$("#zip_error").html("주소는 필수값입니다.");
+						checkResult = false;
+					}
+					
+					let receiver = $("#receiver").val();
+					if(receiver === ""){
+						$("#receiver_error").html("수령인은 필수값입니다.");
+						checkResult = false;
+					}
 					
 					const phnumpattern = /[0-9]{3}[0-9]{3,4}[0-9]{4}/i;
 					let hpNumCheckValue = $("#hp option:selected").val()+$("#hp_num2").val()+$("#hp_num3").val();
@@ -718,14 +735,13 @@
 					}
 					
 					/* 사용한 마일리지 값가져와서 hidden form에 value 넣기 */
-					const usedMileage = $("#pointpay").val();
+					const usedMileage = $("#usedMileage").val();
 					if(usedMileage == ""){
 						$("input[name=usedMileage]").val("0");
-					}else{
-						$("input[name=usedMileage]").val($("#pointpay").val());
 					}
+					
 					$("input[name=beforeDcPrice]").val([[${totalPrice}]]);
-					$("input[name=afterDcPrice]").val([[${totalPrice}]]-$("#pointpay").val());
+					$("input[name=afterDcPrice]").val([[${totalPrice}]]-$("#usedMileage").val());
 					$("input[name='orderContent']").val([[${orderContent}]]);
 					/* (결제수단)이 선택되지 않았다면 , CheckResult false로 변환 */
 					/* 결제수단을 선택하라는 에러표시 */
