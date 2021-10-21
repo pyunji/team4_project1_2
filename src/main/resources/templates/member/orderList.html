@@ -73,19 +73,18 @@
 								<td class="ono">
 									<p class="num">
 							<!-- 주문번호와 // 상픔 정보의 대한 경로  -->
-									<a th:href="@{|/order/ordercomplete?p=${orderx.orders.id}|}" style="text-decoration: underline;">[[${orderx.orders.id}]]</a></p>
-							<!-- 주문한 날짜 bytime = 주문한 날짜 입니다. -->	
-									<script>console.log("${bytime}")</script>
+									<a th:href="@{/order/ordercomplete(p=${orderx.orders.id})}" style="text-decoration: underline;">[[${orderx.orders.id}]]</a></p>
+							<!-- 주문한 날짜 입니다. -->	
 									<span class="sum_date" th:text="${#dates.format(orderx.orderItem.orderByTime,'yyyy.MM.dd')}"></span>
 								</td>
 								<td>
 									<div class="pt_list_all">
-										<a th:href="|/product/set/${orderx.productColor.id}|">
+										<a th:href="@{|/product/set/${orderx.productColor.id}|}">
 									<!-- 상품 이미지 -->
 										<img th:src="${orderx.productColor.img1}"
 											alt="상품 이미지"></a>
 										<div class="tlt_wrap">
-											<a th:href="|/product/set/${orderx.productColor.id}|" class="basket_tlt">
+											<a th:href="@{|/product/set/${orderx.productColor.id}|}" class="basket_tlt">
 									<!-- 상품의 브랜드명 자리-->
 												<span class="tlt" th:text="${orderx.brand.name}"></span> 
 									<!-- 상품 정보의 이름-->
@@ -101,8 +100,8 @@
 						<!-- 수량 자리-->
 								<td>[[${orderx.orderItem.count}]]</td>
 						<!-- 가격 자리-->
-								<td><span th:if="${orderx.orderItem.totalPrice !=0}"> ₩ [[${#numbers.formatInteger(orderx.orderItem.totalPrice, 3, 'COMMA')}]]</span>
-									<span th:if="${orderx.orderItem.totalPrice ==0}"> ₩ 0</span>
+								<td><span th:if="${orderx.orderItem.totalPrice} / 1000 ge 1"> ₩ [[${#numbers.formatInteger(orderx.orderItem.totalPrice, 3, 'COMMA')}]] </span>
+								<span th:if="${orderx.orderItem.totalPrice} / 1000 lt 1"> ₩ [[${orderx.orderItem.totalPrice}]]</span>
 								</td>
 						<!-- 주문상태 -->
 								<td class="oStatus">[[${orderx.orders.status}]]
@@ -221,12 +220,6 @@
 				ordersIdRow.siblings(".oDelivery").eq(0).attr("rowspan", ordersIdRow.length);
 				ordersIdRow.siblings(".oCancelBtn").eq(0).attr("rowspan", ordersIdRow.length);
 
-				
-				console.log(ordersIdRow.siblings(".oStatus").not(":eq(0)"));
-				console.log(ordersIdRow.siblings(".oDelivery").not(":eq(0)"));
-				console.log(ordersIdRow.siblings(".oCancelBtn").not(":eq(0)"));
-				console.log(ordersIdRow.not(":eq(0)"));
-				
 				ordersIdRow.siblings(".oDelivery").not(":eq(0)").remove();
 				ordersIdRow.siblings(".oStatus").not(":eq(0)").remove();
 				ordersIdRow.siblings(".oCancelBtn").not(":eq(0)").remove();
