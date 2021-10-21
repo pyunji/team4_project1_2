@@ -84,8 +84,8 @@
 						<td>
 			<!-- 선택한 상품의 판매가  -->
 							<div class="price_wrap">
-								<span th:if="${ordercomplete.orderItem.totalPrice} !=0 "> ₩ [[${#numbers.formatInteger(ordercomplete.orderItem.totalPrice, 3, 'COMMA')}]] </span>
-								<span th:if="${ordercomplete.orderItem.totalPrice} ==0 "> ₩ 0</span>
+								<span th:if="${ordercomplete.orderItem.totalPrice} / 1000 ge 1"> ₩ [[${#numbers.formatInteger(ordercomplete.orderItem.totalPrice, 3, 'COMMA')}]] </span>
+								<span th:if="${ordercomplete.orderItem.totalPrice} / 1000 lt 1"> ₩ [[${ordercomplete.orderItem.totalPrice}]]</span>
 							</div> 
 						</td>
 					</tr>
@@ -101,13 +101,14 @@
 					<dt >상품 합계</dt>
 					<dd > 
 		<!--선택한 상품 합계 가격-->	
-					<span> ₩ [[${#numbers.formatInteger(bfdcprice, 3, 'COMMA')}]]
-					</dd></span>
+					<span th:if="${bfdcprice} / 1000 lt 1"> ₩ [[${bfdcprice}]]</span>
+					<span th:if="${bfdcprice} / 1000 ge 1"> ₩ [[${#numbers.formatInteger(bfdcprice, 3, 'COMMA')}]]</span>
+					</dd>
 					<dt >한섬 마일리지</dt>
 					<dd > 
 		<!-- 사용한 마일리지  -->
-					<span th:if="${mileage == 0}"> -₩ 0 </span>
-					<span th:if="${mileage != 0}"> -₩ [[${#numbers.formatInteger(mileage, 3, 'COMMA')}]]</span>
+					<span th:if="${mileage / 1000 lt 1}"> -₩ [[${mileage}]] </span>
+					<span th:if="${mileage / 1000 ge 1}"> -₩ [[${#numbers.formatInteger(mileage, 3, 'COMMA')}]]</span>
 					</dd>
 				</dl>
 
@@ -116,8 +117,9 @@
 					<dt >합계</dt>
 					<dd >
 	  <!--  선택한 상품의 가격과 주문자가 사용한 마일리지의 합계 -->
-					<span> ₩ [[${#numbers.formatInteger(afdcprice, 3, 'COMMA')}]]
-					</span></dd>
+					<span th:if="${afdcprice / 1000 lt 1}"> ₩ [[${afdcprice}]]</span>
+					<span th:if="${afdcprice / 1000 ge 1}"> ₩ [[${#numbers.formatInteger(afdcprice, 3, 'COMMA')}]]</span>
+					</dd>
 				</dl>
 			</div>
 		</div> 
