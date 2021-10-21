@@ -1,6 +1,7 @@
 package com.mycompany.webapp.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,14 +11,14 @@ import com.mycompany.webapp.dao.ProductDao;
 import com.mycompany.webapp.dto.CategoryDepth;
 import com.mycompany.webapp.dto.Color;
 import com.mycompany.webapp.dto.Product;
-import com.mycompany.webapp.dto.Size;
 import com.mycompany.webapp.dto.ProductStock;
+import com.mycompany.webapp.dto.Size;
 
 @Service
 public class ProductService {
 	@Resource private ProductDao productDao;
 	
-	public List<Product> getProductsByCategory(CategoryDepth categoryDepthDto){
+	public List<Map> getProductsByCategory(CategoryDepth categoryDepthDto){
 		return productDao.getProductByCategory(categoryDepthDto);
 	}
 	

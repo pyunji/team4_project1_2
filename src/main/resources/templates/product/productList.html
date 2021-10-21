@@ -2,93 +2,98 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{common/layout::setLayout(~{this::links},~{this::content})}">
+<th:block
+	th:replace="~{common/layout::setLayout(~{this::links},~{this::content})}">
 	<th:block th:fragment="links">
 		<th:block th:replace="~{special/homeLinks}"></th:block>
 	</th:block>
 
 	<th:block th:fragment="content">
-	
-	<!--/* bodyWrap 시작 */-->
+
+		<!--/* bodyWrap 시작 */-->
 		<div id=bodyWrap>
 			<section class="py-5">
 				<div class="container px-4 px-lg-5 mt-5">
-					<div th:with="check=''" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-						<!--/*<c:set var="check" value="" /> */-->
-						<!--/* 여기부터 반복시작*/-->
-						<!--/*<c:forEach var="product" items="${products}" varStatus="status">*/-->
+					<div
+						class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 						<th:block th:each="product,status : ${products}">
-							
-							<!--/*<c:if test="${check != product.productColor.id}">>*/-->
-								<!--/*<c:set var="mycount" value="${status.count}" /> 칼라칩을 위해 사용했다. 꼭 사용할 필요 없다.*/-->
-								<th:block th:if="${check} != ${product.productColor.id}">
-								<!-- 클릭시 이동할 url 넣는부분-->
-								<div class="col mb-5" style="cursor: pointer;" th:onclick="|location.href='@{|/product/${product.category.depth1Name}/${product.category.depth2Name}/${product.category.depth3Name}/${product.productColor.id}|}'|">
-									<input type="hidden" name="depth1Value" th:value="${product.category.depth1Name}"></input>
-									<input type="hidden" name="depth2Value" th:value="${product.category.depth2Name}"></input>
-									<input type="hidden" name="depth3Value" th:value="${product.category.depth3Name}"></input>
-									<div class="card h-100 border-0">
-										<!-- Product image-->
-										<img class="card-img-top" th:src="${product.productColor.img1}" alt="..." />
-										<!-- Product details-->
-										<div class="card-body p-4">
-											<div class="text-center">
-												<!-- 브랜드 명-->
-												<p>
-												<div class="fw-bolder mb-1 brand_name">[[${product.brand.name}]]</div>
-												</p>
-												<!-- 상품명-->
-												<p>
-												<div class="fw-bolder mb-1 name">[[${product.productCommon.name}]]</div>
-												</p>
-												<!-- 가격-->
-												<p>
-												<div class="fw-bolder mb-1 price">
-													₩[[${product.productColor.price}]]
-												</div>
-												</p>
-		
-		<!--/*  칼라칩을 위해 사용했던 부분  			<p>
-													<input id="productComId${mycount}" type="hidden" value="${product.productColor.productCommonId}">
-												<div id="productColorChip${mycount}" class="fw-bolder mb-1"></div>
-												</p> */-->
+							<!-- 클릭시 이동할 url 넣는부분-->
+							<div class="col mb-5" style="cursor: pointer;"
+								th:onclick="|location.href='@{|/product/${product.depth1Name}/${product.depth2Name}/${product.depth3Name}/${product.colorList[0].pcolorId}|}'|">
+								<input type="hidden" name="depth1Value"
+									th:value="${product.depth1Name}"></input> <input type="hidden"
+									name="depth2Value" th:value="${product.depth2Name}"></input> <input
+									type="hidden" name="depth3Value"
+									th:value="${product.depth3Name}"></input>
+								<div class="card h-100 border-0">
+									<!-- Product image-->
+									<img class="card-img-top" th:src="${product.colorList[0].img1}"
+										alt="..." />
+									<!-- Product details-->
+									<div class="card-body p-4">
+										<div class="text-center">
+											<!-- 브랜드 명-->
+											<p>
+											<div class="fw-bolder mb-1 brand_name">[[${product.brandName}]]</div>
+											</p>
+											<!-- 상품명-->
+											<p>
+											<div class="fw-bolder mb-1 name">[[${product.productName}]]</div>
+											</p>
+											<!-- 가격-->
+											<p>
+											<div class="fw-bolder mb-1 price">
+												<span>₩[[${#numbers.formatInteger(product.colorList[0].price, 3, 'COMMA')}]]</span>
 											</div>
+											</p>
+
+											<!--/*  칼라칩을 위해 사용했던 부분*/-->
+
+											<div class="color_wrap">
+												<th:block th:each="color : ${product.colorList}">
+													<a href="#" th:style="'display:inline-block; background: #362626 url('+${color.color_img}+');'"></a>
+												</th:block>
+											</div>
+
 										</div>
 									</div>
 								</div>
-								<th:block th:with="check=${product.productColor.id}"></th:block>
-								<!--/*<c:set var="check" value="${product.productColor.id}" />*/-->
+							</div>
+							<!--/*<c:set var="check" value="${product.productColor.id}" />*/-->
 							<!--/*</c:if>*/-->
-							</th:block>
-						<!--/*</c:forEach>*/-->
+							<!--/*</c:forEach>*/-->
 						</th:block>
 						<!--/* 여기까지 반복끝*/-->
 					</div>
 				</div>
 			</section>
-		
+
 			<!--/* 페이징 처리 부분*/-->
 			<div class="row-vw d-flex">
 				<div class="mx-auto">
 					<!--/* <c:set var="urlcontainer" value="${pageContext.request.contextPath}/product/${str}" /> */-->
-					<a class="paginigBtn" th:href="${str}+'?pageNo=1'">처음</a>
+					<a class="paginigBtn" th:href="@{'/product/'+${str}+'?pageNo=1'}">처음</a>
 					<th:block th:if="${pager.groupNo>1}">
-						<a class="paginigBtn" th:href="@{${str}(pageNo=${pager.startPageNo-1})}">이전</a>
+						<a class="paginigBtn"
+							th:href="@{'/product/'+${str}(pageNo=${pager.startPageNo-1})}">이전</a>
 					</th:block>
-					<th:block th:each="i : ${#numbers.sequence(pager.startPageNo, pager.endPageNo)}">
-						<a class="paginigBtn" 
-							th:classappend="${pager.pageNo == i}?'check':''" 
-							th:styleappend="${pager.pageNo == i}?'border: 1px solid; padding: 5px; border-radius: 20%; background-color: #295F39; color: #ffffff; font-weight: bold;':''" 
-							th:href="@{${str}(pageNo=${i})}">[[${i}]]</a>
+					<th:block
+						th:each="i : ${#numbers.sequence(pager.startPageNo, pager.endPageNo)}">
+						<a class="paginigBtn"
+							th:classappend="${pager.pageNo == i}?'check':''"
+							th:styleappend="${pager.pageNo == i}?'border: 1px solid; padding: 5px; border-radius: 20%; background-color: #295F39; color: #ffffff; font-weight: bold;':''"
+							th:href="@{'/product/'+${str}(pageNo=${i})}">[[${i}]]</a>
 					</th:block>
-		
+
 					<th:block th:if="${pager.groupNo<pager.totalGroupNo}">
-						<a class="paginigBtn" th:href="@{${str}(pageNo=${pager.endPageNo+1})}">다음</a>
+						<a class="paginigBtn"
+							th:href="@{'/product/'+${str}(pageNo=${pager.endPageNo+1})}">다음</a>
 					</th:block>
-					<a class="paginigBtn" th:href="@{${str}(pageNo=${pager.totalPageNo})}">맨끝</a>
+					<a class="paginigBtn"
+						th:href="@{'/product/'+${str}(pageNo=${pager.totalPageNo})}">맨끝</a>
 				</div>
 			</div>
-		
+
 			<script th:inline="javascript">
 			
 			 	/* 이미지 칼라칩 부분 지금 작동안함..
@@ -135,7 +140,7 @@
 				})
 				
 			</script>
-		
+
 		</div>
 	</th:block>
 </th:block>
