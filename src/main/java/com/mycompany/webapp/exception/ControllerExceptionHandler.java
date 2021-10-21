@@ -27,4 +27,11 @@ public class ControllerExceptionHandler {
 		e.printStackTrace();
 		return "error/outOfStock";
 	}
+	
+	@ExceptionHandler
+	public String invalidateException(InvalidateException e) {
+		logger.info("실행");
+		e.printStackTrace();
+		return "error/Invalidation";
+	}
 }

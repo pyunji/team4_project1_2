@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mycompany.webapp.dto.CartProduct;
 import com.mycompany.webapp.dto.OrderComplete;
+import com.mycompany.webapp.exception.InvalidateException;
 import com.mycompany.webapp.service.CartService;
 import com.mycompany.webapp.service.MemberService;
 import com.mycompany.webapp.service.MileageService;
@@ -169,12 +170,8 @@ public class OrderController {
 	public String orderValid(@ModelAttribute("orderForm") @Valid Orders orders, BindingResult bindingResult, Model model, Principal principal, String orderContent, RedirectAttributes attributes) {
 		// 서버측 Vlidator 처리
 		if (bindingResult.hasErrors()) {// BindingResult의 error가 존재할 경우 -> 에러메시지를 orderform에 전달
-			/*logger.info("Validatior에 들어왔고, 검증이 올바르지 않음");
-			logger.info(bindingResult.toString());
-
-			model.addAttribute("orderContent", orderContent);
-			return "forward:/order/orderform";*/
-			return "redirect:/error/500";
+			//예외발생
+			throw new InvalidateException("Invalidate");
 		} else {// BindingResult에 error가 존재하지 않을 경우 -> ordercomplete 화면으로(form 재전송 방지를 위해 redirect)
 			logger.info("Validatior에 들어왔고, 검증이 올바름");
 

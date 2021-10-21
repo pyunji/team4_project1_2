@@ -33,11 +33,6 @@ public class HomeController {
 		return "error/403";
 	}
 	
-	@RequestMapping("/error/500")
-	public String error500() {
-		logger.info("실행");
-		return "error/500";
-	}
 	
 	@RequestMapping("/addressPopup")
 	public String addressPopup() {
