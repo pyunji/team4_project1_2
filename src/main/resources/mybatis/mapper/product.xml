@@ -47,6 +47,22 @@
 		<collection property="category" resultMap="categoryMap"/>
 	</resultMap>
 	
+	<resultMap type="java.util.HashMap" id="productListResultMap">
+		<id property="productCommonId" column="productCommonId"/>
+		<result property="brandName" column="brandName"/>
+		<result property="productName" column="productName"/>
+		<result property="depth1Name" column="depth1_name"/>
+		<result property="depth2Name" column="depth2_name"/>
+		<result property="depth3Name" column="depth3_name"/>
+		<collection property="colorList" javaType="java.util.ArrayList" resultMap="colorChipMap"/>
+	</resultMap>
+	
+	<resultMap type="java.util.HashMap" id="colorChipMap">
+		<id property="pcolorId" column="pcolorId"/>
+		<result property="img1" column="img1"/>
+		<result property="price" column="price"/>
+  		<result property="color_img" column="color_img"/>
+	</resultMap>
 	
 	<select id="selectProductOrderByStockRandom" resultMap="productMap">
 		<![CDATA[
@@ -76,11 +92,11 @@
 	</select>
 
 	
-	<select id="getProductByCategory" parameterType="com.mycompany.webapp.dto.CategoryDepth" resultMap="productMap">
+	<select id="getProductByCategory" parameterType="com.mycompany.webapp.dto.CategoryDepth" resultMap="productListResultMap">
 		
-		select rnum, brandName, productName, img1, price, pcolorId, depth1_name, depth2_name, depth3_name
+		select rnum, brandName, productName, img1, price, pcolorId, depth1_name, depth2_name, depth3_name, color_img, productCommonId
 		from (
-		select rownum as rnum, brandName, productName, img1, price, pcolorId, depth1_name, depth2_name, depth3_name
+		select rownum as rnum, brandName, productName, img1, price, pcolorId, depth1_name, depth2_name, depth3_name, color_img, productCommonId
 		from (
 			select 
 			br_tbl.name as brandName,
@@ -88,14 +104,13 @@
 			pcol_tbl.img1 as img1,
 			pcol_tbl.price as price,
 			pcol_tbl.id as pcolorId,
+			pcol_tbl.color_img as color_img,
 			pcol_tbl.product_common_id as productCommonId,
 			cat_tbl.depth1_name as depth1_name,
 			cat_tbl.depth2_name as depth2_name,
 			cat_tbl.depth3_name as depth3_name
 			from
-			(select id, product_common_id, img1, price
-			from product_color
-			where ROWID in (select max(rowid) from product_color group by product_common_id)) pcol_tbl
+			product_color pcol_tbl
 			join product_common pcom_tbl
 			on (pcol_tbl.product_common_id = pcom_tbl.id)
 			join brand br_tbl
@@ -128,14 +143,13 @@
 			pcol_tbl.img1 as img1,
 			pcol_tbl.price as price,
 			pcol_tbl.id as pcolorId,
+			pcol_tbl.color_img as color_img,
 			pcol_tbl.product_common_id as productCommonId,
 			cat_tbl.depth1_name as depth1_name,
 			cat_tbl.depth2_name as depth2_name,
 			cat_tbl.depth3_name as depth3_name
 			from
-			(select id, product_common_id, img1, price
-			from product_color
-			where ROWID in (select max(rowid) from product_color group by product_common_id)) pcol_tbl
+			product_color pcol_tbl
 			join product_common pcom_tbl
 			on (pcol_tbl.product_common_id = pcom_tbl.id)
 			join brand br_tbl

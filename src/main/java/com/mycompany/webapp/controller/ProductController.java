@@ -3,6 +3,7 @@ package com.mycompany.webapp.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -24,6 +25,9 @@ import com.mycompany.webapp.service.ProductService;
 import com.mycompany.webapp.vo.Category;
 import com.mycompany.webapp.vo.Pager;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -67,7 +71,7 @@ public class ProductController {
 		// Pager객체에 parameter값으로 (표시할 상품수, 표시할 페이지 그룹수, 전체 상품개수, 페이지번호)를 넣는다.
 		Pager pager = new Pager(12,5,totalProduct, pageNo);
 		categoryDepthDto.setPager(pager);
-		List<Product> products = productService.getProductsByCategory(categoryDepthDto); 
+		List<Map> products = productService.getProductsByCategory(categoryDepthDto); 
 		model.addAttribute("pager",pager);
 		model.addAttribute("products", products);
 		String str = depth1+"/"+depth2+"/"+depth3;
@@ -88,7 +92,7 @@ public class ProductController {
 		int totalProduct = productService.getTotalProductNum(categoryDepthDto);
 		Pager pager = new Pager(12,5,totalProduct, pageNo);
 		categoryDepthDto.setPager(pager);
-		List<Product> products = productService.getProductsByCategory(categoryDepthDto); 
+		List<Map> products = productService.getProductsByCategory(categoryDepthDto); 
 		model.addAttribute("pager",pager);
 		model.addAttribute("products", products);
 		String str = depth1+"/"+depth2;
@@ -106,7 +110,8 @@ public class ProductController {
 		int totalProduct = productService.getTotalProductNum(categoryDepthDto);
 		Pager pager = new Pager(12,5,totalProduct, pageNo);
 		categoryDepthDto.setPager(pager);
-		List<Product> products = productService.getProductsByCategory(categoryDepthDto); 
+		List<Map> products = productService.getProductsByCategory(categoryDepthDto);
+		log.info(products.toString());
 		model.addAttribute("pager",pager);
 		model.addAttribute("products", products);
 		String str = depth1;
