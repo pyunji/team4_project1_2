@@ -623,7 +623,7 @@
 				/* 주문고객과 동일 버튼 클릭시, 고객 default 정보 */
 				function customerAddress(){
 					$("#receiver").val([[${member.name}]]);
-					$("#address").val([[${member.zipcode}]]);
+					$("#zipcode").val([[${member.zipcode}]]);
 					$("#line1").val([[${member.address1}]]);
 					$("#line2").val([[${member.address2}]]);
 					$("#hp_num2").val([[${#strings.substring(member.phone,3,7)}]]);
@@ -650,7 +650,7 @@
 					
 					new daum.Postcode({
 						oncomplete:function(data){
-							$("#adress").val(data.zonecode);
+							$("#zipcode").val(data.zonecode);
 							$("#line1").val(data.address);
 							$("#line2").val('');
 							$("#line2").focus();
@@ -681,11 +681,21 @@
 					if(zip === ""){
 						$("#zip_error").html("주소는 필수값입니다.");
 						checkResult = false;
+					}else{
+						$("#zip_error").html("");
 					}
 					
 					let receiver = $("#receiver").val();
-					if(receiver === ""){
+					const receiverPattern = /^[ㄱ-ㅎ가-힣]{2,5}|[a-zA-Z]{2,10}\\s[a-zA-Z]{2,10}|[a-zA-Z]{2,20}$/;
+					let receiverResult = receiverPattern.test(receiver);
+
+					if(receiverResult === true){
+						$("#receiver_error").html("");
+					}else if(receiver === ""){
 						$("#receiver_error").html("수령인은 필수값입니다.");
+						checkResult = false;
+					}else{
+						$("#receiver_error").html("수령인 값이 올바르지 않습니다.");
 						checkResult = false;
 					}
 					
@@ -756,15 +766,11 @@
 					
 					var ordform = $("#orderform");
 					
-					
 					//유효성 검사 결과가 true일때만 결제가 된다.
 					if(checkResult == true){
 						ordform.submit();
 					}
 				}	
-				
-				
-			
 				
 			</script>
 
