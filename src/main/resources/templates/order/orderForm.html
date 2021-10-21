@@ -44,11 +44,11 @@
 											<tr class="al_middle">
 												<td class="frt">
 													<div class="pt_list_all">
-														<a th:href="@{/cart/set/${product.pcolorId}}"> 
+														<a th:href="@{|/product/set/${product.pcolorId}|}"> 
 															<img th:src="@{${product.img}}" alt="">
 														</a>
 														<div class="tlt_wrap">
-															<a th:href="@{/cart/set/${product.pcolorId}}" class="basket_tlt">
+															<a th:href="@{|/product/set/${product.pcolorId}|}" class="basket_tlt">
 																<span class="tlt">[[${product.brandName}]]</span> <span
 																class="sb_tlt">[[${product.productName}]]</span>
 															</a>
@@ -292,7 +292,6 @@
 												</select>
 												<span style="color:red;" id="email_error"></span>
 												<input type="hidden" th:field="*{email}"></input>
-												<form:errors cssClass="text-danger" path="orderForm.email"/>
 											</td>
 										</tr>
 									</tbody>
@@ -321,7 +320,7 @@
 										<tbody>
 											<tr>
 												<th scope="row" class="th_space">
-													<label for="pointpay">한섬마일리지 결제</label>
+													<label for="usedMileage">한섬마일리지 결제</label>
 												</th>
 												<td>
 													<!-- 한섬마일리지 결제 입력 -->
@@ -530,14 +529,14 @@
 				/* 마일리지 입력시 오입력을 체크하기 위한 부분 */
 				function inputMileage(){
 					let mileageSum = parseInt([[${mileageSum}]]);
-					let insertedValue = $("#pointpay").val();
+					let insertedValue = $("#usedMileage").val();
 					if(insertedValue>=mileageSum){
-						$("#pointpay").val(mileageSum);
+						$("#usedMileage").val(mileageSum);
 						$(".p_txt span").text('0');
 					}else if(insertedValue<mileageSum && insertedValue>0){
 						$(".p_txt span").text(mileageSum-insertedValue);
 					}else{
-						$("#pointpay").val('');
+						$("#usedMileage").val('');
 						$(".p_txt span").text(mileageSum);
 					}
 				}
@@ -549,17 +548,17 @@
 					if($("input:checkbox[id=point_useall]").is(":checked") == true) {
 						/* 모두사용 체크가 되어있을 경우 */
 						if(subtotal>mileageSum){
-							$("#pointpay").val(mileageSum);
+							$("#usedMileage").val(mileageSum);
 							$(".p_txt span").text('0');
 							
 						}else{
-							$("#pointpay").val(subtotal);
+							$("#usedMileage").val(subtotal);
 							$(".p_txt span").text(mileageSum-subtotal);
 						}
 					} else {
 						/* 모두사용 체크가 되어있지 않을 경우 */
 						$(".p_txt span").text(mileageSum);
-						$("#pointpay").val('0');
+						$("#usedMileage").val('0');
 					}
 				});
 				
@@ -571,24 +570,24 @@
 				
 				/* 마일리지 적용버튼 누를시 */
 				function doUsePoint(apply){
-					$("#pointpay")
-					.prop('readonly', true)
+					$("#usedMileage")
+					.prop('readonly',true)
 					.css('background-color','lightgray');
-					$("#point_useall").attr("disabled",true);
+					$("#point_useall").prop("disabled",true);
 					apply.setAttribute("style","color:#c7c7c7");
 					$("#btnCancelUsePoint").css('color','black');
-					if($("#pointpay").val()!=0 && btn == true){
-						$("#subTotal").after($('<dt class=delch_wrap190816><p class="tlt_ship190816">마일리지사용</p><div class="delch_box190816" style="display: none;"><span class="arr">위치아이콘</span><ul class="bul_sty01_li"></ul></div></dt><dd id="deliveryCost">-'+$("#pointpay").val().toLocaleString()+'</dd>'));
+					if($("#usedMileage").val()!=0 && btn == true){
+						$("#subTotal").after($('<dt class=delch_wrap190816><p class="tlt_ship190816">마일리지사용</p><div class="delch_box190816" style="display: none;"><span class="arr">위치아이콘</span><ul class="bul_sty01_li"></ul></div></dt><dd id="deliveryCost">-'+$("#usedMileage").val().toLocaleString()+'</dd>'));
 						btn = false;
 					}
 					//한섬마일리지 사용시 마일리지 버튼 비활성화
 					$("#sel_rd6").prop("disabled", true);
 					//총합계금액은 상품금액 - 마일리지금액
-					$("#totalPrice").text('₩'+([[${totalPrice}]]-$("#pointpay").val()).toLocaleString());
+					$("#totalPrice").text('₩'+([[${totalPrice}]]-$("#usedMileage").val()).toLocaleString());
 					
 					
 					//마일리지 사용금액과 상품금액이 같다면 "신용카드, 실시간계좌이체 부분 비활성화, 한섬마일리지 check"
-					if($("#pointpay").val() == [[${totalPrice}]]){
+					if($("#usedMileage").val() == [[${totalPrice}]]){
 						$("#sel_rd1").prop("disabled",true);
 						$("#sel_rd2").prop("disabled",true);
 						$("#sel_rd6").prop("disabled", true);
@@ -598,20 +597,20 @@
 				
 				/* 쿠폰취소버튼 누를시 */
 				function cancelUsePoint(cancel){
-					$("#pointpay")
+					$("#usedMileage")
 					.prop('readonly', false)
 					.css('background-color','');
-					$("#point_useall").attr("disabled",false);
+					$("#point_useall").prop("disabled",false);
 					cancel.setAttribute("style","color:#c7c7c7");
 					$("#btnUsePoint").css('color','black');
-					if($("#pointpay").val()!=0 && btn == false){
+					if($("#usedMileage").val()!=0 && btn == false){
 						$("#subTotal").next().next().remove();
 						$("#subTotal").next().remove();
 						btn = true;
 						$("#totalPrice").text('₩'+([[${totalPrice}]]).toLocaleString());
 					}
-					$("#sel_rd1").attr("disabled",false);
-					$("#sel_rd2").attr("disabled",false);
+					$("#sel_rd1").prop("disabled",false);
+					$("#sel_rd2").prop("disabled",false);
 					$("#sel_rd6").prop("checked", false);
 				}
 
@@ -699,7 +698,7 @@
 						checkResult = false;
 					}
 					
-					const phnumpattern = /[0-9]{3}[0-9]{3,4}[0-9]{4}/i;
+					const phnumpattern = /[0-9]{2,3}[0-9]{3,4}[0-9]{4}/i;
 					let hpNumCheckValue = $("#hp option:selected").val()+$("#hp_num2").val()+$("#hp_num3").val();
 					const hpnumResult = phnumpattern.test(hpNumCheckValue);
 					
@@ -756,6 +755,9 @@
 					/* (결제수단)이 선택되지 않았다면 , CheckResult false로 변환 */
 					/* 결제수단을 선택하라는 에러표시 */
 					if($("input[name='mode']:checked").val() == 0 || $("input[name='mode']:checked").val() == 1){
+						/* 카드 - 0신한 */
+						/* 계좌 - 1신한 */
+						/* 마일리지 - 2 */
 						$('input[name=paymentMethodCode]').val($("input[name='mode']:checked").val()+$("select[name=company]").val());
 					}else if( $("input[name='mode']:checked").val() == 2){
 						$('input[name=paymentMethodCode]').val($("input[name='mode']:checked").val());

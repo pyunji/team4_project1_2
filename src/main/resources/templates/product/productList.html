@@ -16,7 +16,7 @@
 				<div class="container px-4 px-lg-5 mt-5">
 					<div
 						class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-						<th:block th:each="product,status : ${products}">
+						<th:block th:each="product : ${products}">
 							<!-- 클릭시 이동할 url 넣는부분-->
 							<div class="col mb-5" style="cursor: pointer;"
 								th:onclick="|location.href='@{|/product/${product.depth1Name}/${product.depth2Name}/${product.depth3Name}/${product.colorList[0].pcolorId}|}'|">
@@ -96,24 +96,6 @@
 
 			<script th:inline="javascript">
 			
-			 	/* 이미지 칼라칩 부분 지금 작동안함..
-			 	function insertImgChip(){
-					for(let i=1; i<= ${mycount}; i++){
-						var temp = "#productComId"+i;
-						var pcommonId = $(temp).val();
-						var id_color = "#productColorChip" + i;
-						$.ajax({
-							url : "/product/selectColors",
-							async: false,
-							method : "post",
-							data : {"pcommonId":pcommonId},
-							success : function(result) {
-								$(id_color).html(result);
-							}
-						})
-					}
-			    } */
-			
 			 	/*author : 채연*/
 				/* 카테고리 활성화 */
 				$(window).ready(function(){
@@ -133,10 +115,6 @@
 						let depth2Id = CategoryNameId + " #"+depth2;
 						$(depth2Id).css("color", "gray");
 					}
-					/*
-					칼라칩 넣는 부분 개발중..ㅎ
-					insertImgChip();
-					*/
 				})
 				
 			</script>
