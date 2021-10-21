@@ -96,12 +96,14 @@ public class OrderController {
 		}
 
 		int totalPrice = jsonObject.getInt("totalPrice");
-
+		
+		
 		model.addAttribute("member", member);
 		model.addAttribute("mileageSum", mileageSum);
 		model.addAttribute("cartProducts", cartProducts);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("orderContent", orderContent);
+		model.addAttribute("orders", new Orders());
 		/* orderService.orderDeliveryPaymentInfo(null); */
 		return "order/orderForm";
 	}
@@ -164,14 +166,15 @@ public class OrderController {
 	 * InitBinder의 이름과 Valid의 ModelAttribute의 이름을 일치시켜줘야한다.
 	 * BindingResult에는 검증 결과가 들어간다. */
 	@PostMapping("/ordercomplete")
-	public String orderValid(@ModelAttribute("orderForm") @Valid Orders orders, BindingResult bindingResult, Model model, Principal principal, Orders order, String orderContent, RedirectAttributes attributes) {
+	public String orderValid(@ModelAttribute("orderForm") @Valid Orders orders, BindingResult bindingResult, Model model, Principal principal, String orderContent, RedirectAttributes attributes) {
 		// 서버측 Vlidator 처리
 		if (bindingResult.hasErrors()) {// BindingResult의 error가 존재할 경우 -> 에러메시지를 orderform에 전달
-			logger.info("Validatior에 들어왔고, 검증이 올바르지 않음");
+			/*logger.info("Validatior에 들어왔고, 검증이 올바르지 않음");
 			logger.info(bindingResult.toString());
 
 			model.addAttribute("orderContent", orderContent);
-			return "forward:/order/orderform";
+			return "forward:/order/orderform";*/
+			return "redirect:/error/500";
 		} else {// BindingResult에 error가 존재하지 않을 경우 -> ordercomplete 화면으로(form 재전송 방지를 위해 redirect)
 			logger.info("Validatior에 들어왔고, 검증이 올바름");
 
@@ -182,7 +185,7 @@ public class OrderController {
 			 * orderService.makeOrder insert: OrderItem 테이블에 orderId와 상품을 매칭해 입력 delete:
 			 * Cart 테이블에서 해당 상품 삭제 update: product_stock 테이블에서 남은 수량 업데이트 (주문한 수량만큼 차감)
 			 */
-			String madeOrderId = orderService.makeOrder(principal, products, order, orderContent);
+			String madeOrderId = orderService.makeOrder(principal, products, orders, orderContent);
 			attributes.addAttribute("p", madeOrderId);
 
 			
